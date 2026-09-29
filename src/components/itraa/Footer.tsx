@@ -1,6 +1,5 @@
 import { Link } from "@tanstack/react-router";
 import { Camera, MessageCircle, Share2 } from "lucide-react";
-import { useReveal } from "@/lib/use-reveal";
 import { BrandLogo } from "./BrandLogo";
 
 const columns = [
@@ -37,21 +36,19 @@ const columns = [
 ] as const;
 
 export function Footer() {
-  const root = useReveal<HTMLElement>({ y: 34, stagger: 0.07 });
-
   return (
-    <footer ref={root} className="bg-surface pt-24">
+    <footer className="bg-surface pt-24">
       <div className="shell">
         <div className="grid gap-14 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,1.7fr)]">
           <div>
-            <div data-reveal>
+            <div>
               <BrandLogo className="h-36 w-auto" />
             </div>
-            <p data-reveal className="mt-6 max-w-xs text-sm leading-relaxed text-muted-foreground">
+            <p className="mt-6 max-w-xs text-sm leading-relaxed text-muted-foreground">
               A maison of slow perfumery. Hand-composed in small batches, shipped worldwide in cedar
               and cotton.
             </p>
-            <div data-reveal className="mt-8 flex gap-3">
+            <div className="mt-8 flex gap-3">
               {[Camera, Share2, MessageCircle].map((Icon, i) => (
                 <a
                   key={i}
@@ -69,7 +66,7 @@ export function Footer() {
 
           <div className="grid gap-10 sm:grid-cols-3">
             {columns.map((column) => (
-              <div key={column.title} data-reveal>
+              <div key={column.title}>
                 <p className="eyebrow">{column.title}</p>
                 <ul className="mt-6 space-y-3">
                   {column.links.map((link) => (
