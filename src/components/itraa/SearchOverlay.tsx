@@ -3,7 +3,7 @@ import { Link } from "@tanstack/react-router";
 import { AnimatePresence, motion } from "framer-motion";
 import { Search, X } from "lucide-react";
 import { useShop } from "@/lib/shop-store";
-import { products } from "@/lib/itraa-data";
+import { formatINR, products } from "@/lib/itraa-data";
 
 export function SearchOverlay() {
   const { searchOpen, setSearchOpen } = useShop();
@@ -79,7 +79,7 @@ export function SearchOverlay() {
                       <p className="font-serif text-lg">{product.name}</p>
                       <p className="text-xs text-muted-foreground">{product.collection}</p>
                       <p className="mt-2 font-button text-xs tracking-[0.18em]">
-                        ${product.price}
+                        From {formatINR(product.price)}
                       </p>
                     </div>
                   </Link>

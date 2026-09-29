@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { Camera, MessageCircle, Share2 } from "lucide-react";
 import { useReveal } from "@/lib/use-reveal";
+import { BrandLogo } from "./BrandLogo";
 
 const columns = [
   {
@@ -43,9 +44,9 @@ export function Footer() {
       <div className="shell">
         <div className="grid gap-14 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,1.7fr)]">
           <div>
-            <p data-reveal className="font-display text-5xl tracking-[0.32em] sm:text-6xl">
-              ITRAA
-            </p>
+            <div data-reveal>
+              <BrandLogo className="h-36 w-auto" />
+            </div>
             <p data-reveal className="mt-6 max-w-xs text-sm leading-relaxed text-muted-foreground">
               A maison of slow perfumery. Hand-composed in small batches, shipped worldwide in cedar
               and cotton.

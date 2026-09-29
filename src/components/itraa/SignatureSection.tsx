@@ -60,18 +60,17 @@ export function SignatureSection() {
             data-reveal
             className="mt-6 font-display text-[clamp(2.2rem,4.4vw,3.8rem)] leading-[1.05]"
           >
-            Aurea <span className="italic text-gold">Parfum</span>
+            Arabica <span className="italic text-gold">Premium</span>
           </h2>
           <p data-reveal className="mt-6 text-sm leading-[1.9] text-muted-foreground">
-            The composition that defines the house. Golden amber wrapped around powdered iris,
-            grounded by sandalwood aged three years. Poured into hand-blown glass with a solid
-            brass cap.
+            Roasted coffee and cardamom folded into warm resin, rose and a velvety oud base. A rich
+            premium composition with depth that unfolds slowly on skin.
           </p>
           <dl data-reveal className="mt-9 space-y-4">
             {[
-              ["Concentration", "Extrait · 28%"],
+              ["Concentration", "Extrait de Parfum"],
               ["Longevity", "12–14 hours"],
-              ["Edition", "Numbered, 500 pieces"],
+              ["Sizes", "30 ml · 50 ml · 100 ml"],
             ].map(([term, value]) => (
               <div
                 key={term}
@@ -85,8 +84,8 @@ export function SignatureSection() {
             ))}
           </dl>
           <div data-reveal className="mt-10">
-            <Link to="/product/$slug" params={{ slug: "elysian-sun" }} className="btn-luxe">
-              Discover Aurea
+            <Link to="/product/$slug" params={{ slug: "arabica" }} className="btn-luxe">
+              Discover Arabica
             </Link>
           </div>
         </div>
@@ -95,14 +94,14 @@ export function SignatureSection() {
           <div data-sig-bottle className="relative mx-auto max-w-[620px]">
             <img
               src={images.signatureHero}
-              alt="Aurea Parfum sculptural bottle resting on cream silk"
+              alt="Arabica premium perfume bottle resting on cream silk"
               loading="lazy"
               width={1200}
               height={1408}
               className="w-full rounded-[30px] object-cover shadow-luxe"
             />
             <span className="absolute -left-6 top-10 hidden rotate-[-90deg] font-button text-[10px] uppercase tracking-[0.42em] text-muted-foreground lg:block">
-              Edition No. 001
+              Premium Extrait
             </span>
           </div>
         </div>

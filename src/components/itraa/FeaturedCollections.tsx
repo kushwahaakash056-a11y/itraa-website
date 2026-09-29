@@ -1,11 +1,78 @@
+import { useEffect, useRef } from "react";
 import { Link } from "@tanstack/react-router";
-import { ArrowUpRight } from "lucide-react";
-import { collections } from "@/lib/itraa-data";
+import { Star } from "lucide-react";
+import { products } from "@/lib/itraa-data";
 import { useReveal, useSplitReveal } from "@/lib/use-reveal";
+import type { Product } from "@/lib/itraa-data";
+
+function FeaturedProductCard({ product }: { product: Product }) {
+  return (
+    <article className="group">
+      <Link
+        to="/product/$slug"
+        params={{ slug: product.slug }}
+        className="block overflow-hidden rounded-[24px] bg-secondary"
+      >
+        <img
+          src={product.image}
+          alt={`${product.name} by ITRAA`}
+          loading="lazy"
+          width={900}
+          height={1200}
+          draggable={false}
+          className="aspect-[4/5] w-full select-none object-cover transition-transform duration-[1400ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.08]"
+        />
+      </Link>
+
+      <Link
+        to="/product/$slug"
+        params={{ slug: product.slug }}
+        className="link-underline mt-5 inline-block font-serif text-xl"
+      >
+        {product.name}
+      </Link>
+
+      <div className="mt-3 flex items-center gap-2">
+        <div className="flex gap-0.5" aria-hidden="true">
+          {[...Array(5)].map((_, index) => (
+            <Star
+              key={index}
+              className={`h-3 w-3 ${index < Math.round(product.rating) ? "fill-gold text-gold" : "text-border"}`}
+              strokeWidth={1}
+            />
+          ))}
+        </div>
+        <span className="text-[11px] text-muted-foreground">
+          {product.rating} · {product.reviews} reviews
+        </span>
+      </div>
+    </article>
+  );
+}
 
 export function FeaturedCollections() {
   const root = useReveal<HTMLElement>({ y: 60, stagger: 0.12 });
   const heading = useSplitReveal<HTMLHeadingElement>();
+  const rail = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const element = rail.current;
+    if (!element) return;
+
+    const scrollHorizontally = (event: WheelEvent) => {
+      if (Math.abs(event.deltaY) <= Math.abs(event.deltaX)) return;
+
+      const atStart = element.scrollLeft <= 0;
+      const atEnd = element.scrollLeft + element.clientWidth >= element.scrollWidth - 1;
+      if ((event.deltaY < 0 && atStart) || (event.deltaY > 0 && atEnd)) return;
+
+      event.preventDefault();
+      element.scrollLeft += event.deltaY;
+    };
+
+    element.addEventListener("wheel", scrollHorizontally, { passive: false });
+    return () => element.removeEventListener("wheel", scrollHorizontally);
+  }, []);
 
   return (
     <section ref={root} id="collections" className="shell py-28 lg:py-40">
@@ -19,7 +86,7 @@ export function FeaturedCollections() {
             className="mt-6 font-display text-[clamp(2.4rem,5.4vw,4.6rem)] leading-[1.02]"
           >
             <span data-line className="block">
-              Four ways to be
+              Eight ways to be
             </span>
             <span data-line className="block italic text-gold">
               remembered.
@@ -27,48 +94,32 @@ export function FeaturedCollections() {
           </h2>
         </div>
         <p data-reveal className="max-w-sm text-sm leading-relaxed text-muted-foreground lg:pb-4">
-          Each collection is composed as a chapter — a distinct temperament, built from the same
-          obsessive sourcing and the same restraint.
+          Explore every ITRAA fragrance in one smooth carousel—from Velocity to Vanilla Noir,
+          each available in 30 ml, 50 ml and 100 ml.
         </p>
       </div>
 
-      <div className="mt-16 grid gap-x-6 gap-y-14 sm:grid-cols-2 lg:grid-cols-4">
-        {collections.map((collection, i) => (
-          <Link
-            key={collection.slug}
-            to="/collections"
-            data-reveal
-            className={`group block ${i % 2 === 1 ? "lg:mt-16" : ""}`}
-          >
-            <div className="relative overflow-hidden rounded-[26px] bg-secondary">
-              <img
-                src={collection.image}
-                alt={`${collection.name} collection by ITRAA`}
-                loading="lazy"
-                width={900}
-                height={1200}
-                className="aspect-[3/4] w-full object-cover transition-transform duration-[1400ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.09]"
-              />
-              <span className="absolute left-5 top-5 font-button text-[10px] tracking-[0.3em] text-background mix-blend-difference">
-                {collection.index}
-              </span>
-              <span className="absolute bottom-5 right-5 grid h-11 w-11 translate-y-4 place-items-center rounded-full bg-card opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100">
-                <ArrowUpRight className="h-4 w-4" strokeWidth={1.2} />
-              </span>
+      <div
+        ref={rail}
+        className="no-scrollbar mt-16 overflow-x-auto overscroll-x-contain scroll-smooth pb-2"
+        data-reveal
+      >
+        <div className="flex snap-x snap-mandatory gap-6">
+          {products.map((product) => (
+            <div
+              key={product.slug}
+              className="w-[88%] shrink-0 snap-start sm:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] xl:w-[calc(25%-1.125rem)]"
+            >
+              <FeaturedProductCard product={product} />
             </div>
-            <div className="mt-6">
-              <h3 className="font-serif text-2xl">{collection.name}</h3>
-              <p className="mt-1 text-xs uppercase tracking-[0.2em] text-gold">
-                {collection.tagline}
-              </p>
-              <div className="grid grid-rows-[0fr] transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:grid-rows-[1fr]">
-                <p className="overflow-hidden text-sm leading-relaxed text-muted-foreground opacity-0 transition-opacity duration-500 group-hover:opacity-100">
-                  <span className="block pt-3">{collection.description}</span>
-                </p>
-              </div>
-            </div>
-          </Link>
-        ))}
+          ))}
+        </div>
+      </div>
+
+      <div data-reveal className="mt-12 text-center">
+        <Link to="/collections" className="btn-ghost-luxe">
+          View all eight fragrances
+        </Link>
       </div>
     </section>
   );

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { Heart, Minus, Plus, RotateCw, Star } from "lucide-react";
-import { products } from "@/lib/itraa-data";
+import { formatINR, products } from "@/lib/itraa-data";
 import { useShop } from "@/lib/shop-store";
 import { useReveal } from "@/lib/use-reveal";
 
@@ -39,16 +39,20 @@ function ProductPage() {
   const [qty, setQty] = useState(1);
   const [open, setOpen] = useState<string | null>("Description");
   const [spin, setSpin] = useState(0);
+  const [selectedSize, setSelectedSize] = useState(product.size);
   const root = useReveal<HTMLDivElement>({ y: 40, stagger: 0.08 });
 
   useEffect(() => {
     markViewed(product.slug);
     setActive(0);
+    setSelectedSize(product.size);
   }, [product.slug, markViewed]);
 
   const related = products.filter((p) => p.slug !== product.slug).slice(0, 3);
   const wished = wishlist.includes(product.slug);
   const gallery = product.gallery;
+  const selectedVariant =
+    product.variants.find((variant) => variant.size === selectedSize) ?? product.variants[0]!;
 
   return (
     <div ref={root} className="pb-32 pt-32">
@@ -98,7 +102,7 @@ function ProductPage() {
             {product.name}
           </h1>
           <p data-reveal className="mt-3 font-serif text-lg text-muted-foreground">
-            {product.subtitle} · {product.size}
+            {product.subtitle} · {selectedVariant.size}
           </p>
 
           <div data-reveal className="mt-6 flex items-center gap-3">
@@ -119,8 +123,32 @@ function ProductPage() {
           </div>
 
           <p data-reveal className="mt-8 font-display text-4xl">
-            ${product.price}
+            {formatINR(selectedVariant.price)}
           </p>
+
+          <div data-reveal className="mt-8">
+            <p className="eyebrow">Choose size</p>
+            <div className="mt-4 grid max-w-md grid-cols-3 gap-2">
+              {product.variants.map((variant) => (
+                <button
+                  key={variant.size}
+                  type="button"
+                  onClick={() => setSelectedSize(variant.size)}
+                  aria-pressed={selectedSize === variant.size}
+                  className={`rounded-xl border px-3 py-3 text-center transition-colors ${
+                    selectedSize === variant.size
+                      ? "border-gold bg-gold/10 text-foreground"
+                      : "border-border text-muted-foreground hover:border-gold"
+                  }`}
+                >
+                  <span className="block font-button text-[10px] uppercase tracking-[0.16em]">
+                    {variant.size}
+                  </span>
+                  <span className="mt-1 block text-xs">{formatINR(variant.price)}</span>
+                </button>
+              ))}
+            </div>
+          </div>
 
           <div data-reveal className="mt-8 flex flex-wrap items-center gap-4">
             <div className="flex items-center gap-5 rounded-full border border-border px-5 py-3">
@@ -132,10 +160,10 @@ function ProductPage() {
                 <Plus className="h-3.5 w-3.5" strokeWidth={1.4} />
               </button>
             </div>
-            <button className="btn-luxe" onClick={() => addToCart(product.slug, qty)}>
+            <button className="btn-luxe" onClick={() => addToCart(product.slug, qty, selectedVariant.size)}>
               Add to cart
             </button>
-            <button className="btn-ghost-luxe" onClick={() => addToCart(product.slug, qty)}>
+            <button className="btn-ghost-luxe" onClick={() => addToCart(product.slug, qty, selectedVariant.size)}>
               Buy now
             </button>
             <button
@@ -214,7 +242,7 @@ function ProductPage() {
                 />
               </div>
               <p className="mt-5 font-serif text-xl">{p.name}</p>
-              <p className="text-xs text-muted-foreground">${p.price}</p>
+              <p className="text-xs text-muted-foreground">From {formatINR(p.price)}</p>
             </Link>
           ))}
         </div>
@@ -224,10 +252,12 @@ function ProductPage() {
       <div className="glass-luxe fixed inset-x-0 bottom-0 z-[105] grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4 border-t px-5 py-4 lg:hidden">
         <div className="min-w-0">
           <p className="truncate font-serif text-base">{product.name}</p>
-          <p className="text-xs text-muted-foreground">${product.price}</p>
+          <p className="text-xs text-muted-foreground">
+            {selectedVariant.size} · {formatINR(selectedVariant.price)}
+          </p>
         </div>
         <button
-          onClick={() => addToCart(product.slug, qty)}
+          onClick={() => addToCart(product.slug, qty, selectedVariant.size)}
           className="shrink-0 rounded-full bg-foreground px-6 py-3 font-button text-[10px] uppercase tracking-[0.2em] text-background"
         >
           Add to cart

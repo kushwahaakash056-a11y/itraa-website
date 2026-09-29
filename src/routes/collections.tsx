@@ -1,10 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { collections, products } from "@/lib/itraa-data";
+import { products } from "@/lib/itraa-data";
+import { ProductCard } from "@/components/itraa/BestSellers";
 import { useReveal } from "@/lib/use-reveal";
 
 const title = "Collections — ITRAA Parfums";
 const description =
-  "Four chapters of the ITRAA maison: Floral, Oud, Fresh and Signature. Each composed from slowly macerated absolutes.";
+  "Discover all eight ITRAA fragrances, available in 30 ml, 50 ml and 100 ml sizes.";
 
 export const Route = createFileRoute("/collections")({
   head: () => ({
@@ -32,57 +33,16 @@ function CollectionsPage() {
         data-reveal
         className="mt-6 max-w-3xl font-display text-[clamp(2.6rem,6.4vw,5.4rem)] leading-[1.02]"
       >
-        Collections composed as <span className="italic text-gold">chapters</span>
+        Eight scents, one <span className="italic text-gold">distinct aura</span>
       </h1>
+      <p data-reveal className="mt-7 max-w-2xl text-sm leading-[1.9] text-muted-foreground">
+        Explore the complete ITRAA collection—from luminous everyday signatures to deep premium
+        extraits. Every fragrance is available in 30 ml, 50 ml and 100 ml.
+      </p>
 
-      <div className="mt-24 space-y-28">
-        {collections.map((collection, i) => (
-          <article
-            key={collection.slug}
-            data-reveal
-            className={`grid items-center gap-12 lg:grid-cols-2 lg:gap-20 ${
-              i % 2 === 1 ? "lg:[&>figure]:order-2" : ""
-            }`}
-          >
-            <figure className="overflow-hidden rounded-[28px] bg-secondary">
-              <img
-                src={collection.image}
-                alt={`${collection.name} collection`}
-                loading="lazy"
-                width={900}
-                height={1200}
-                className="aspect-[4/5] w-full object-cover transition-transform duration-[1600ms] hover:scale-105"
-              />
-            </figure>
-            <div>
-              <p className="eyebrow">{collection.index}</p>
-              <h2 className="mt-5 font-display text-[clamp(2rem,4vw,3.4rem)]">{collection.name}</h2>
-              <p className="mt-2 text-xs uppercase tracking-[0.22em] text-gold">
-                {collection.tagline}
-              </p>
-              <div className="gold-rule my-8 max-w-[160px]" />
-              <p className="max-w-md text-sm leading-[1.9] text-muted-foreground">
-                {collection.description}
-              </p>
-              <div className="mt-7 flex flex-wrap gap-2">
-                {products
-                  .filter((product) => product.collection === collection.name)
-                  .map((product) => (
-                    <Link
-                      key={product.slug}
-                      to="/product/$slug"
-                      params={{ slug: product.slug }}
-                      className="rounded-full border border-border px-4 py-2 font-button text-[9px] uppercase tracking-[0.18em] text-muted-foreground transition-colors hover:border-gold hover:text-foreground"
-                    >
-                      {product.name}
-                    </Link>
-                  ))}
-              </div>
-              <Link to="/shop" className="btn-ghost-luxe mt-10">
-                Shop {collection.name}
-              </Link>
-            </div>
-          </article>
+      <div className="mt-16 grid gap-x-6 gap-y-16 sm:grid-cols-2 lg:grid-cols-4">
+        {products.map((product) => (
+          <ProductCard key={product.slug} product={product} />
         ))}
       </div>
 
@@ -90,13 +50,13 @@ function CollectionsPage() {
         data-reveal
         className="mt-28 rounded-[30px] bg-surface px-6 py-14 text-center sm:px-12 lg:py-20"
       >
-        <p className="eyebrow">Find your chapter</p>
+        <p className="eyebrow">Find your signature</p>
         <h2 className="mx-auto mt-5 max-w-2xl font-display text-[clamp(2rem,4vw,3.5rem)] leading-tight">
           Begin with instinct. <span className="italic text-gold">Stay for the drydown.</span>
         </h2>
         <p className="mx-auto mt-5 max-w-xl text-sm leading-[1.9] text-muted-foreground">
-          Floral wears luminous, Oud deepens after dusk, Fresh stays close and clean, while
-          Signature balances woods, iris and amber for every hour.
+          Compare all eight compositions, choose your preferred size and discover the scent that
+          feels unmistakably yours.
         </p>
         <Link to="/contact" className="btn-luxe mt-9">
           Ask a fragrance advisor

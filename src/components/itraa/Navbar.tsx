@@ -3,7 +3,7 @@ import { Link } from "@tanstack/react-router";
 import { Heart, Menu, Moon, Search, ShoppingBag, Sun, User, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useShop } from "@/lib/shop-store";
-import { collections } from "@/lib/itraa-data";
+import { BrandLogo } from "./BrandLogo";
 
 const links = [
   { label: "Home", to: "/" },
@@ -15,7 +15,6 @@ const links = [
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
-  const [mega, setMega] = useState(false);
   const [mobile, setMobile] = useState(false);
   const { cartCount, wishlist, setCartOpen, setSearchOpen, theme, toggleTheme } = useShop();
 
@@ -26,29 +25,32 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  useEffect(() => {
+    document.body.style.overflow = mobile ? "hidden" : "";
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setMobile(false);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", onKeyDown);
+    };
+  }, [mobile]);
+
   return (
     <header
-      onMouseLeave={() => setMega(false)}
-      className={`fixed inset-x-0 top-0 z-[100] transition-all duration-700 ${
-        scrolled || mega
-          ? "glass-luxe border-b py-3 shadow-soft"
-          : "border-b border-transparent py-6"
+      className={`fixed inset-x-0 top-0 transition-all duration-700 ${mobile ? "z-[300]" : "z-[100]"} ${
+        scrolled ? "glass-luxe border-b py-3 shadow-soft" : "border-b border-transparent py-6"
       }`}
     >
-      <div className="shell grid grid-cols-[auto_1fr_auto] items-center gap-6">
-        <Link
-          to="/"
-          className="font-display text-2xl leading-none tracking-[0.4em] text-foreground"
-        >
-          ITRAA
-        </Link>
+      <div className="shell grid grid-cols-[minmax(0,1fr)_auto] items-center gap-2 lg:grid-cols-[auto_1fr_auto] lg:gap-6">
+        <BrandLogo className="h-12 w-auto sm:h-14 lg:h-16" />
 
         <nav className="hidden justify-center gap-9 lg:flex">
           {links.map((link) => (
             <Link
               key={link.to}
               to={link.to}
-              onMouseEnter={() => setMega(link.label === "Collections")}
               activeProps={{ className: "text-foreground" }}
               className="link-underline font-button text-[11px] font-medium uppercase tracking-[0.24em] text-muted-foreground transition-colors hover:text-foreground"
             >
@@ -58,13 +60,15 @@ export function Navbar() {
         </nav>
 
         <div className="flex items-center gap-1 sm:gap-2">
-          <IconButton label="Search" onClick={() => setSearchOpen(true)}>
-            <Search className="h-[18px] w-[18px]" strokeWidth={1.2} />
-          </IconButton>
+          <span className="hidden sm:block">
+            <IconButton label="Search" onClick={() => setSearchOpen(true)}>
+              <Search className="h-[18px] w-[18px]" strokeWidth={1.2} />
+            </IconButton>
+          </span>
           <Link
             to="/wishlist"
             aria-label="Wishlist"
-            className="relative flex h-10 w-10 items-center justify-center rounded-full text-foreground transition-colors hover:bg-secondary"
+            className="relative hidden h-10 w-10 items-center justify-center rounded-full text-foreground transition-colors hover:bg-secondary sm:flex"
           >
             <Heart
               className={`h-[18px] w-[18px] ${wishlist.length ? "fill-gold text-gold" : ""}`}
@@ -72,15 +76,13 @@ export function Navbar() {
             />
             {wishlist.length > 0 && <Badge>{wishlist.length}</Badge>}
           </Link>
-          <span className="hidden sm:block">
-            <IconButton label="Toggle theme" onClick={toggleTheme}>
-              {theme === "light" ? (
-                <Moon className="h-[18px] w-[18px]" strokeWidth={1.2} />
-              ) : (
-                <Sun className="h-[18px] w-[18px]" strokeWidth={1.2} />
-              )}
-            </IconButton>
-          </span>
+          <IconButton label={`Switch to ${theme === "light" ? "dark" : "light"} mode`} onClick={toggleTheme}>
+            {theme === "light" ? (
+              <Moon className="h-[18px] w-[18px]" strokeWidth={1.2} />
+            ) : (
+              <Sun className="h-[18px] w-[18px]" strokeWidth={1.2} />
+            )}
+          </IconButton>
           <Link
             to="/contact"
             aria-label="Account"
@@ -102,41 +104,6 @@ export function Navbar() {
         </div>
       </div>
 
-      {/* Mega menu */}
-      <AnimatePresence>
-        {mega && (
-          <motion.div
-            initial={{ opacity: 0, y: -12 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -12 }}
-            transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-            className="hidden border-t border-border/60 lg:block"
-          >
-            <div className="shell grid grid-cols-4 gap-6 py-10">
-              {collections.map((collection) => (
-                <Link
-                  key={collection.slug}
-                  to="/collections"
-                  onClick={() => setMega(false)}
-                  className="group"
-                >
-                  <div className="overflow-hidden rounded-2xl bg-secondary">
-                    <img
-                      src={collection.image}
-                      alt={`${collection.name} collection`}
-                      loading="lazy"
-                      className="h-40 w-full object-cover transition-transform duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-110"
-                    />
-                  </div>
-                  <p className="mt-4 font-serif text-lg">{collection.name}</p>
-                  <p className="mt-1 text-xs text-muted-foreground">{collection.tagline}</p>
-                </Link>
-              ))}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
       {/* Mobile drawer */}
       <AnimatePresence>
         {mobile && (
@@ -144,11 +111,15 @@ export function Navbar() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[130] bg-background lg:hidden"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Mobile navigation"
+            className="fixed inset-0 z-[130] isolate bg-background lg:hidden"
           >
-            <div className="shell flex h-full flex-col py-6">
+            <div className="absolute inset-0 -z-10 bg-background" />
+            <div className="shell flex h-full flex-col overflow-y-auto py-4 sm:py-6">
               <div className="flex items-center justify-between">
-                <span className="font-display text-2xl tracking-[0.4em]">ITRAA</span>
+                <BrandLogo className="h-14 w-auto" onClick={() => setMobile(false)} />
                 <button
                   aria-label="Close menu"
                   onClick={() => setMobile(false)}
@@ -157,7 +128,7 @@ export function Navbar() {
                   <X className="h-5 w-5" strokeWidth={1.2} />
                 </button>
               </div>
-              <nav className="mt-16 flex flex-col gap-6">
+              <nav className="mt-10 flex flex-col gap-4 sm:mt-16 sm:gap-6">
                 {links.map((link, i) => (
                   <motion.div
                     key={link.to}
@@ -168,7 +139,7 @@ export function Navbar() {
                     <Link
                       to={link.to}
                       onClick={() => setMobile(false)}
-                      className="font-display text-4xl text-foreground"
+                      className="font-display text-3xl text-foreground sm:text-4xl"
                     >
                       {link.label}
                     </Link>
@@ -182,7 +153,7 @@ export function Navbar() {
                   <Link
                     to="/wishlist"
                     onClick={() => setMobile(false)}
-                    className="flex items-center gap-4 font-display text-4xl text-foreground"
+                    className="flex items-center gap-4 font-display text-3xl text-foreground sm:text-4xl"
                   >
                     Wishlist
                     {wishlist.length > 0 && (
@@ -192,6 +163,19 @@ export function Navbar() {
                     )}
                   </Link>
                 </motion.div>
+                <motion.button
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.38, duration: 0.5 }}
+                  onClick={() => {
+                    setMobile(false);
+                    setSearchOpen(true);
+                  }}
+                  className="flex items-center gap-3 text-left font-display text-3xl text-foreground sm:text-4xl"
+                >
+                  <Search className="h-6 w-6" strokeWidth={1.2} />
+                  Search
+                </motion.button>
               </nav>
               <div className="gold-rule mt-auto" />
               <p className="eyebrow mt-6">Maison de Parfum — Est. 2019</p>

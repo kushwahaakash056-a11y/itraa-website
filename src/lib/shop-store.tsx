@@ -9,7 +9,7 @@ import {
 } from "react";
 import { products, type Product } from "./itraa-data";
 
-export type CartLine = { slug: string; qty: number };
+export type CartLine = { slug: string; size: string; qty: number };
 
 type ShopState = {
   cart: CartLine[];
@@ -19,9 +19,9 @@ type ShopState = {
   searchOpen: boolean;
   quickView: Product | null;
   theme: "light" | "dark";
-  addToCart: (slug: string, qty?: number) => void;
-  removeFromCart: (slug: string) => void;
-  setQty: (slug: string, qty: number) => void;
+  addToCart: (slug: string, qty?: number, size?: string) => void;
+  removeFromCart: (slug: string, size: string) => void;
+  setQty: (slug: string, size: string, qty: number) => void;
   toggleWishlist: (slug: string) => void;
   markViewed: (slug: string) => void;
   setCartOpen: (open: boolean) => void;
@@ -61,10 +61,16 @@ export function ShopProvider({ children }: { children: ReactNode }) {
         const lines = JSON.parse(savedCart);
         if (Array.isArray(lines)) {
           setCart(
-            lines.filter(
-              (line): line is CartLine =>
-                typeof line?.slug === "string" && typeof line?.qty === "number" && line.qty > 0,
-            ),
+            lines
+              .filter(
+                (line): line is { slug: string; size?: string; qty: number } =>
+                  typeof line?.slug === "string" && typeof line?.qty === "number" && line.qty > 0,
+              )
+              .map((line) => ({
+                slug: line.slug,
+                size: line.size ?? products.find((product) => product.slug === line.slug)?.size ?? "30 ml",
+                qty: line.qty,
+              })),
           );
         }
       }
@@ -97,25 +103,34 @@ export function ShopProvider({ children }: { children: ReactNode }) {
     root.classList.toggle("dark", theme === "dark");
   }, [theme]);
 
-  const addToCart = useCallback((slug: string, qty = 1) => {
+  const addToCart = useCallback((slug: string, qty = 1, requestedSize?: string) => {
+    const product = products.find((item) => item.slug === slug);
+    const size = requestedSize ?? product?.size ?? "30 ml";
     setCart((prev) => {
-      const found = prev.find((l) => l.slug === slug);
-      if (found) return prev.map((l) => (l.slug === slug ? { ...l, qty: l.qty + qty } : l));
-      return [...prev, { slug, qty }];
+      const found = prev.find((line) => line.slug === slug && line.size === size);
+      if (found) {
+        return prev.map((line) =>
+          line.slug === slug && line.size === size ? { ...line, qty: line.qty + qty } : line,
+        );
+      }
+      return [...prev, { slug, size, qty }];
     });
     setCartOpen(true);
   }, []);
 
   const removeFromCart = useCallback(
-    (slug: string) => setCart((prev) => prev.filter((l) => l.slug !== slug)),
+    (slug: string, size: string) =>
+      setCart((prev) => prev.filter((line) => line.slug !== slug || line.size !== size)),
     [],
   );
 
-  const setQty = useCallback((slug: string, qty: number) => {
+  const setQty = useCallback((slug: string, size: string, qty: number) => {
     setCart((prev) =>
       qty <= 0
-        ? prev.filter((l) => l.slug !== slug)
-        : prev.map((l) => (l.slug === slug ? { ...l, qty } : l)),
+        ? prev.filter((line) => line.slug !== slug || line.size !== size)
+        : prev.map((line) =>
+            line.slug === slug && line.size === size ? { ...line, qty } : line,
+          ),
     );
   }, []);
 
@@ -133,7 +148,8 @@ export function ShopProvider({ children }: { children: ReactNode }) {
     const cartCount = cart.reduce((n, l) => n + l.qty, 0);
     const cartTotal = cart.reduce((sum, line) => {
       const product = products.find((p) => p.slug === line.slug);
-      return sum + (product ? product.price * line.qty : 0);
+      const variant = product?.variants.find((item) => item.size === line.size);
+      return sum + (variant ? variant.price * line.qty : 0);
     }, 0);
 
     return {

@@ -1,10 +1,26 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { Minus, Plus, X } from "lucide-react";
 import { useShop } from "@/lib/shop-store";
-import { products } from "@/lib/itraa-data";
+import { formatINR, products } from "@/lib/itraa-data";
 
 export function CartDrawer() {
   const { cartOpen, setCartOpen, cart, setQty, removeFromCart, cartTotal } = useShop();
+  const whatsappMessage = [
+    "Hello ITRAA, I would like to place this order:",
+    "",
+    ...cart.flatMap((line) => {
+      const product = products.find((item) => item.slug === line.slug);
+      if (!product) return [];
+      const unitPrice =
+        product.variants.find((variant) => variant.size === line.size)?.price ?? product.price;
+      return [
+        `• ${product.name} — ${line.size} × ${line.qty} = ${formatINR(unitPrice * line.qty)}`,
+      ];
+    }),
+    "",
+    `Total: ${formatINR(cartTotal)}`,
+  ].join("\n");
+  const whatsappCheckoutUrl = `https://wa.me/?text=${encodeURIComponent(whatsappMessage)}`;
 
   return (
     <AnimatePresence>
@@ -46,7 +62,7 @@ export function CartDrawer() {
                   const product = products.find((p) => p.slug === line.slug);
                   if (!product) return null;
                   return (
-                    <li key={line.slug} className="grid grid-cols-[80px_minmax(0,1fr)] gap-4">
+                    <li key={`${line.slug}-${line.size}`} className="grid grid-cols-[80px_minmax(0,1fr)] gap-4">
                       <img
                         src={product.image}
                         alt={product.name}
@@ -57,10 +73,10 @@ export function CartDrawer() {
                         <div className="flex items-start justify-between gap-3">
                           <div className="min-w-0">
                             <p className="truncate font-serif text-lg">{product.name}</p>
-                            <p className="text-xs text-muted-foreground">{product.size}</p>
+                            <p className="text-xs text-muted-foreground">{line.size}</p>
                           </div>
                           <button
-                            onClick={() => removeFromCart(line.slug)}
+                            onClick={() => removeFromCart(line.slug, line.size)}
                             className="font-button text-[10px] uppercase tracking-[0.2em] text-muted-foreground hover:text-foreground"
                           >
                             Remove
@@ -70,20 +86,23 @@ export function CartDrawer() {
                           <div className="flex items-center gap-3 rounded-full border border-border px-3 py-1.5">
                             <button
                               aria-label="Decrease quantity"
-                              onClick={() => setQty(line.slug, line.qty - 1)}
+                              onClick={() => setQty(line.slug, line.size, line.qty - 1)}
                             >
                               <Minus className="h-3.5 w-3.5" strokeWidth={1.4} />
                             </button>
                             <span className="font-button text-xs">{line.qty}</span>
                             <button
                               aria-label="Increase quantity"
-                              onClick={() => setQty(line.slug, line.qty + 1)}
+                              onClick={() => setQty(line.slug, line.size, line.qty + 1)}
                             >
                               <Plus className="h-3.5 w-3.5" strokeWidth={1.4} />
                             </button>
                           </div>
                           <span className="font-button text-xs tracking-[0.18em]">
-                            ${product.price * line.qty}
+                            {formatINR(
+                              (product.variants.find((item) => item.size === line.size)?.price ??
+                                product.price) * line.qty,
+                            )}
                           </span>
                         </div>
                       </div>
@@ -96,12 +115,25 @@ export function CartDrawer() {
             <div className="border-t border-border px-7 py-6">
               <div className="flex items-center justify-between">
                 <span className="eyebrow">Subtotal</span>
-                <span className="font-display text-3xl">${cartTotal}</span>
+                <span className="font-display text-3xl">{formatINR(cartTotal)}</span>
               </div>
               <p className="mt-2 text-xs text-muted-foreground">
                 Complimentary express shipping and gift wrapping included.
               </p>
-              <button className="btn-luxe mt-6 w-full">Proceed to checkout</button>
+              {cart.length > 0 ? (
+                <a
+                  href={whatsappCheckoutUrl}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  className="btn-luxe mt-6 w-full"
+                >
+                  Proceed to checkout on WhatsApp
+                </a>
+              ) : (
+                <button disabled className="btn-luxe mt-6 w-full cursor-not-allowed opacity-50">
+                  Proceed to checkout on WhatsApp
+                </button>
+              )}
             </div>
           </motion.aside>
         </>

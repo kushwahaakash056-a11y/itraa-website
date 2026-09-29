@@ -78,6 +78,7 @@ export type Product = {
   collection: string;
   price: number;
   size: string;
+  variants: { size: "30 ml" | "50 ml" | "100 ml"; price: number }[];
   rating: number;
   reviews: number;
   image: string;
@@ -88,20 +89,27 @@ export type Product = {
   notes: { top: string[]; heart: string[]; base: string[] };
 };
 
+export const formatINR = (price: number) => `₹${price.toLocaleString("en-IN")}`;
+
 export const products: Product[] = [
   {
-    slug: "elysian-sun",
-    name: "Elysian Sun",
+    slug: "velocity",
+    name: "Velocity",
     subtitle: "Eau de Parfum",
     collection: "Signature",
-    price: 245,
-    size: "100 ml",
+    price: 499,
+    size: "30 ml",
+    variants: [
+      { size: "30 ml", price: 499 },
+      { size: "50 ml", price: 699 },
+      { size: "100 ml", price: 1199 },
+    ],
     rating: 4.9,
     reviews: 218,
     image: heroBottle,
     gallery: [heroBottle, signatureHero, signature],
     description:
-      "A golden hour captured in glass. Elysian Sun opens on sunlit bergamot before settling into amber, iris and a trail of warm sandalwood that stays close to the skin for hours.",
+      "Bright citrus and aromatic woods move with effortless energy. Velocity is a clean, confident signature designed to stay with you from first light to late evening.",
     ingredients:
       "Alcohol Denat., Parfum (Fragrance), Aqua, Limonene, Linalool, Coumarin. 22% concentration of natural fragrance oils. Never tested on animals.",
     shipping:
@@ -113,18 +121,23 @@ export const products: Product[] = [
     },
   },
   {
-    slug: "velvet-oud",
-    name: "Velvet Oud",
+    slug: "obsidian",
+    name: "Obsidian",
     subtitle: "Extrait de Parfum",
     collection: "Oud",
-    price: 320,
-    size: "75 ml",
+    price: 599,
+    size: "30 ml",
+    variants: [
+      { size: "30 ml", price: 599 },
+      { size: "50 ml", price: 799 },
+      { size: "100 ml", price: 1299 },
+    ],
     rating: 4.8,
     reviews: 164,
     image: oud,
     gallery: [oud, signatureHero, heroBottle],
     description:
-      "Deep, resinous and unapologetic. Aged oud wood is softened with saffron and a plush leather accord — a fragrance built for evening.",
+      "Dark woods, saffron and a smooth leather accord create a deep, polished trail. Obsidian is composed for evenings that call for quiet confidence.",
     ingredients:
       "Alcohol Denat., Parfum (Fragrance), Aqua, Eugenol, Cinnamal. 28% extrait concentration. Vegan and cruelty free.",
     shipping:
@@ -136,41 +149,51 @@ export const products: Product[] = [
     },
   },
   {
-    slug: "white-jasmin",
-    name: "White Jasmin",
+    slug: "rogue",
+    name: "ROGUE",
     subtitle: "Eau de Parfum",
-    collection: "Floral",
-    price: 210,
-    size: "100 ml",
-    rating: 4.7,
-    reviews: 301,
-    image: floral,
-    gallery: [floral, ig4, heroBottle],
+    collection: "Signature",
+    price: 599,
+    size: "30 ml",
+    variants: [
+      { size: "30 ml", price: 599 },
+      { size: "50 ml", price: 799 },
+      { size: "100 ml", price: 1299 },
+    ],
+    rating: 4.8,
+    reviews: 187,
+    image: signatureHero,
+    gallery: [signatureHero, ig4, heroBottle],
     description:
-      "Night-blooming jasmine sambac lifted by pear and softened with a cashmere musk drydown. Luminous, romantic, never heavy.",
+      "Spiced citrus breaks into smoky amber and dry cedar. ROGUE is bold without being loud—a modern scent with an unmistakable edge.",
     ingredients:
       "Alcohol Denat., Parfum (Fragrance), Aqua, Benzyl Salicylate, Linalool. 20% concentration. Vegan and cruelty free.",
     shipping:
       "Complimentary worldwide express shipping. Delivered within 2–5 working days in signature ITRAA packaging.",
     notes: {
-      top: ["Pear", "Neroli"],
-      heart: ["Jasmine Sambac", "Tuberose"],
-      base: ["White Musk", "Vanilla"],
+      top: ["Bergamot", "Black Pepper"],
+      heart: ["Saffron", "Cedar"],
+      base: ["Amber", "Musk"],
     },
   },
   {
-    slug: "citrine-air",
-    name: "Citrine Air",
-    subtitle: "Eau de Toilette",
+    slug: "veloris",
+    name: "Veloris",
+    subtitle: "Eau de Parfum",
     collection: "Fresh",
-    price: 180,
-    size: "100 ml",
-    rating: 4.6,
-    reviews: 142,
+    price: 599,
+    size: "30 ml",
+    variants: [
+      { size: "30 ml", price: 599 },
+      { size: "50 ml", price: 799 },
+      { size: "100 ml", price: 1299 },
+    ],
+    rating: 4.7,
+    reviews: 156,
     image: fresh,
     gallery: [fresh, ig2, heroBottle],
     description:
-      "A clean sheet of light. Green mandarin and cut fig leaf over vetiver — the everyday signature for those who prefer restraint.",
+      "A cool rush of mandarin and green leaves settles into vetiver and soft musk. Veloris feels crisp, refined and endlessly wearable.",
     ingredients:
       "Alcohol Denat., Parfum (Fragrance), Aqua, Limonene, Citral. 15% concentration. Vegan and cruelty free.",
     shipping:
@@ -179,6 +202,118 @@ export const products: Product[] = [
       top: ["Green Mandarin", "Lemon"],
       heart: ["Fig Leaf", "Lavender"],
       base: ["Vetiver", "Musk"],
+    },
+  },
+  {
+    slug: "arabica",
+    name: "Arabica",
+    subtitle: "Premium Extrait de Parfum",
+    collection: "Oud",
+    price: 599,
+    size: "30 ml",
+    variants: [
+      { size: "30 ml", price: 599 },
+      { size: "50 ml", price: 899 },
+      { size: "100 ml", price: 1399 },
+    ],
+    rating: 4.9,
+    reviews: 204,
+    image: oud,
+    gallery: [oud, ig5, signatureHero],
+    description:
+      "Roasted coffee, cardamom and warm resin unfold over a velvety oud base. Arabica is a rich premium composition with exceptional depth.",
+    ingredients:
+      "Alcohol Denat., Parfum (Fragrance), Aqua, Eugenol, Cinnamal. High-concentration fragrance oils. Vegan and cruelty free.",
+    shipping:
+      "Complimentary express shipping. Delivered in signature ITRAA packaging within 2–5 working days.",
+    notes: {
+      top: ["Coffee", "Cardamom"],
+      heart: ["Rose", "Cacao"],
+      base: ["Oud", "Amber"],
+    },
+  },
+  {
+    slug: "floreva",
+    name: "Floreva",
+    subtitle: "Eau de Parfum",
+    collection: "Floral",
+    price: 599,
+    size: "30 ml",
+    variants: [
+      { size: "30 ml", price: 599 },
+      { size: "50 ml", price: 799 },
+      { size: "100 ml", price: 1299 },
+    ],
+    rating: 4.8,
+    reviews: 173,
+    image: floral,
+    gallery: [floral, ig3, heroBottle],
+    description:
+      "Luminous jasmine and rose petals bloom over cashmere musk. Floreva is soft, graceful and memorable without ever feeling heavy.",
+    ingredients:
+      "Alcohol Denat., Parfum (Fragrance), Aqua, Benzyl Salicylate, Linalool. Premium fragrance oils. Vegan and cruelty free.",
+    shipping:
+      "Complimentary express shipping. Delivered in signature ITRAA packaging within 2–5 working days.",
+    notes: {
+      top: ["Pear", "Neroli"],
+      heart: ["Jasmine", "Rose"],
+      base: ["Cashmere Musk", "Sandalwood"],
+    },
+  },
+  {
+    slug: "libera",
+    name: "Libera",
+    subtitle: "Eau de Parfum",
+    collection: "Fresh",
+    price: 599,
+    size: "30 ml",
+    variants: [
+      { size: "30 ml", price: 599 },
+      { size: "50 ml", price: 799 },
+      { size: "100 ml", price: 1299 },
+    ],
+    rating: 4.7,
+    reviews: 149,
+    image: ig2,
+    gallery: [ig2, fresh, heroBottle],
+    description:
+      "Sparkling citrus, lavender and clean woods create an airy sense of freedom. Libera is effortless, modern and made for every day.",
+    ingredients:
+      "Alcohol Denat., Parfum (Fragrance), Aqua, Limonene, Linalool. Premium fragrance oils. Vegan and cruelty free.",
+    shipping:
+      "Complimentary express shipping. Delivered in signature ITRAA packaging within 2–5 working days.",
+    notes: {
+      top: ["Lemon", "Bergamot"],
+      heart: ["Lavender", "Violet Leaf"],
+      base: ["Musk", "Cedar"],
+    },
+  },
+  {
+    slug: "vanilla-noir",
+    name: "Vanilla Noir",
+    subtitle: "Premium Extrait de Parfum",
+    collection: "Signature",
+    price: 599,
+    size: "30 ml",
+    variants: [
+      { size: "30 ml", price: 599 },
+      { size: "50 ml", price: 899 },
+      { size: "100 ml", price: 1399 },
+    ],
+    rating: 4.9,
+    reviews: 231,
+    image: ig5,
+    gallery: [ig5, signatureHero, oud],
+    description:
+      "Madagascan vanilla turns dark and sophisticated with amber, cacao and polished woods. Vanilla Noir is indulgent, smooth and distinctly premium.",
+    ingredients:
+      "Alcohol Denat., Parfum (Fragrance), Aqua, Coumarin, Benzyl Benzoate. High-concentration fragrance oils. Vegan and cruelty free.",
+    shipping:
+      "Complimentary express shipping. Delivered in signature ITRAA packaging within 2–5 working days.",
+    notes: {
+      top: ["Pink Pepper", "Bergamot"],
+      heart: ["Vanilla", "Cacao"],
+      base: ["Amber", "Sandalwood"],
     },
   },
 ];
@@ -207,13 +342,13 @@ export const noteFamilies = [
 export const testimonials = [
   {
     quote:
-      "I have worn the same house fragrance for eleven years. Elysian Sun replaced it in a single afternoon.",
+      "I have worn the same house fragrance for eleven years. Velocity replaced it in a single afternoon.",
     name: "Amara Sethi",
     role: "Creative Director, Milan",
   },
   {
     quote:
-      "Velvet Oud is the only oud I have found that feels modern rather than nostalgic. It reads as tailoring, not perfume.",
+      "Obsidian is the only oud I have found that feels modern rather than nostalgic. It reads as tailoring, not perfume.",
     name: "Julien Marchand",
     role: "Architect, Paris",
   },

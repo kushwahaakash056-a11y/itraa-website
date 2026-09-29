@@ -101,7 +101,7 @@ export function useImageReveal<T extends HTMLElement>(parallax = 60) {
   return ref;
 }
 
-/** Word-by-word masked reveal for editorial headlines. */
+/** React-safe masked reveal for editorial headline lines. */
 export function useSplitReveal<T extends HTMLElement>(delay = 0) {
   const ref = useRef<T | null>(null);
 
@@ -113,35 +113,21 @@ export function useSplitReveal<T extends HTMLElement>(delay = 0) {
     gsap.registerPlugin(ScrollTrigger);
 
     const lines = Array.from(el.querySelectorAll<HTMLElement>("[data-line]"));
-    const originals = lines.map((line) => line.innerHTML);
-
-    lines.forEach((line) => {
-      const words = (line.textContent ?? "").split(" ").filter(Boolean);
-      line.innerHTML = words
-        .map(
-          (word) =>
-            `<span class="inline-block overflow-hidden align-bottom"><span class="inline-block will-change-transform" data-word>${word}</span></span>`,
-        )
-        .join(" ");
-    });
+    if (!lines.length) return;
 
     const ctx = gsap.context(() => {
-      gsap.from("[data-word]", {
-        yPercent: 118,
+      gsap.from(lines, {
+        y: "1.1em",
+        opacity: 0,
         duration: 1.1,
         ease: "power4.out",
-        stagger: 0.045,
+        stagger: 0.09,
         delay,
         scrollTrigger: { trigger: el, start: "top 88%", once: true },
       });
     }, el);
 
-    return () => {
-      ctx.revert();
-      lines.forEach((line, i) => {
-        line.innerHTML = originals[i] ?? line.innerHTML;
-      });
-    };
+    return () => ctx.revert();
   }, [delay]);
 
   return ref;

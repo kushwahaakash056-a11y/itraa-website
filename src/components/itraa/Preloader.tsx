@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { BrandLogo } from "./BrandLogo";
 
 /** Cinematic entry curtain shown once per session. */
 export function Preloader() {
@@ -27,14 +28,14 @@ export function Preloader() {
           transition={{ duration: 1, ease: [0.76, 0, 0.24, 1] }}
         >
           <div className="text-center">
-            <motion.p
+            <motion.div
               initial={{ opacity: 0, letterSpacing: "0.6em" }}
               animate={{ opacity: 1, letterSpacing: "0.42em" }}
               transition={{ duration: 1.3, ease: [0.16, 1, 0.3, 1] }}
-              className="font-display text-4xl font-light text-foreground sm:text-6xl"
+              className="flex justify-center"
             >
-              ITRAA
-            </motion.p>
+              <BrandLogo className="h-36 w-auto sm:h-48" />
+            </motion.div>
             <motion.div
               initial={{ scaleX: 0 }}
               animate={{ scaleX: 1 }}

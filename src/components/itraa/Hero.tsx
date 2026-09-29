@@ -159,7 +159,7 @@ export function Hero() {
           >
             <img
               src={images.heroBottle}
-              alt="ITRAA Elysian Sun luxury perfume bottle in sunlight"
+              alt="ITRAA Velocity luxury perfume bottle in sunlight"
               width={1200}
               height={1504}
               fetchPriority="high"
@@ -171,7 +171,7 @@ export function Hero() {
             className="glass-luxe absolute -bottom-4 left-0 hidden rounded-2xl px-6 py-5 sm:block"
           >
             <p className="eyebrow">Signature</p>
-            <p className="mt-2 font-serif text-xl">Elysian Sun</p>
+            <p className="mt-2 font-serif text-xl">Velocity</p>
             <p className="mt-1 text-xs text-muted-foreground">Amber · Iris · Sandalwood</p>
           </div>
         </div>

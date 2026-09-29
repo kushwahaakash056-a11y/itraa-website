@@ -1,46 +1,11 @@
-import { useEffect, useRef } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Camera } from "lucide-react";
 import { images } from "@/lib/itraa-data";
-import { prefersReducedMotion } from "@/lib/smooth-scroll";
 
-/** Horizontal scroll gallery, pinned on desktop, native swipe rail on mobile. */
+/** Native horizontal rail that stays safe across client-side route changes. */
 export function InstagramGallery() {
-  const root = useRef<HTMLElement | null>(null);
-  const rail = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    const section = root.current;
-    const track = rail.current;
-    if (!section || !track || prefersReducedMotion()) return;
-    if (window.innerWidth < 1024) return;
-
-    gsap.registerPlugin(ScrollTrigger);
-
-    const ctx = gsap.context(() => {
-      const distance = track.scrollWidth - window.innerWidth + 160;
-      if (distance <= 0) return;
-      gsap.to(track, {
-        x: -distance,
-        ease: "none",
-        scrollTrigger: {
-          trigger: section,
-          start: "top top",
-          end: () => `+=${distance}`,
-          pin: true,
-          scrub: 1,
-          invalidateOnRefresh: true,
-        },
-      });
-    }, section);
-
-    return () => ctx.revert();
-  }, []);
-
   return (
-    <section ref={root} className="overflow-hidden py-24 lg:py-0">
-      <div className="lg:flex lg:h-svh lg:flex-col lg:justify-center">
+    <section className="overflow-hidden py-24 lg:py-32">
+      <div>
         <div className="shell flex flex-wrap items-end justify-between gap-6">
           <div>
             <p className="eyebrow">08 — @itraa.parfums</p>
@@ -59,8 +24,8 @@ export function InstagramGallery() {
           </a>
         </div>
 
-        <div className="no-scrollbar mt-12 overflow-x-auto lg:overflow-visible">
-          <div ref={rail} className="flex gap-6 px-6 md:px-14 xl:px-30">
+        <div className="no-scrollbar mt-12 overflow-x-auto overscroll-x-contain">
+          <div className="flex w-max gap-6 px-6 pb-4 md:px-14 xl:px-30">
             {images.instagram.map((src, i) => (
               <figure
                 key={src}

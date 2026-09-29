@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { Eye, Heart, Star } from "lucide-react";
-import { products } from "@/lib/itraa-data";
+import { formatINR, products } from "@/lib/itraa-data";
 import { useShop } from "@/lib/shop-store";
 import { useReveal } from "@/lib/use-reveal";
 import type { Product } from "@/lib/itraa-data";
@@ -36,7 +36,13 @@ export function BestSellers() {
   );
 }
 
-export function ProductCard({ product }: { product: Product }) {
+export function ProductCard({
+  product,
+  showQuickAdd = true,
+}: {
+  product: Product;
+  showQuickAdd?: boolean;
+}) {
   const { addToCart, toggleWishlist, wishlist, setQuickView } = useShop();
   const wished = wishlist.includes(product.slug);
 
@@ -65,13 +71,15 @@ export function ProductCard({ product }: { product: Product }) {
           />
         </button>
 
-        <div className="absolute inset-x-4 bottom-4 flex translate-y-6 gap-2 opacity-0 transition-all duration-600 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-y-0 group-hover:opacity-100">
-          <button
-            onClick={() => addToCart(product.slug)}
-            className="flex-1 rounded-full bg-foreground px-4 py-3 font-button text-[10px] uppercase tracking-[0.22em] text-background"
-          >
-            Add to cart
-          </button>
+        <div className={`absolute bottom-4 flex translate-y-6 gap-2 opacity-0 transition-all duration-600 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-y-0 group-hover:opacity-100 ${showQuickAdd ? "inset-x-4" : "right-4"}`}>
+          {showQuickAdd && (
+            <button
+              onClick={() => addToCart(product.slug)}
+              className="flex-1 rounded-full bg-foreground px-4 py-3 font-button text-[10px] uppercase tracking-[0.22em] text-background"
+            >
+              Add to cart
+            </button>
+          )}
           <button
             aria-label="Quick view"
             onClick={() => setQuickView(product)}
@@ -91,11 +99,22 @@ export function ProductCard({ product }: { product: Product }) {
           >
             {product.name}
           </Link>
-          <p className="mt-1 text-xs text-muted-foreground">
-            {product.subtitle} · {product.size}
-          </p>
+          <p className="mt-1 text-xs text-muted-foreground">{product.subtitle}</p>
         </div>
-        <span className="shrink-0 font-button text-xs tracking-[0.16em]">${product.price}</span>
+        <span className="shrink-0 font-button text-xs tracking-[0.12em]">
+          From {formatINR(product.price)}
+        </span>
+      </div>
+
+      <div className="mt-3 grid grid-cols-3 gap-1.5">
+        {product.variants.map((variant) => (
+          <div key={variant.size} className="rounded-lg bg-secondary px-2 py-2 text-center">
+            <p className="font-button text-[9px] uppercase tracking-[0.12em] text-muted-foreground">
+              {variant.size}
+            </p>
+            <p className="mt-1 font-button text-[10px]">{formatINR(variant.price)}</p>
+          </div>
+        ))}
       </div>
 
       <div className="mt-3 flex items-center gap-2">
