@@ -727,34 +727,3 @@ Premium Loader
 FINAL GOAL
 
 ==================================================
-
-Generate a completely original luxury perfume website with pixel-perfect UI, premium UX, award-winning aesthetics, editorial composition, cinematic GSAP animations, buttery Lenis smooth scrolling, reusable React components, Tailwind CSS styling, responsive layouts, and production-ready clean code.
-
-The design must feel like an exclusive luxury fragrance brand—not a typical e-commerce template.
-
-Every screen should look premium enough to win an Awwwards recognition.
-
-Think like a Senior Product Designer with 15+ years of experience in luxury fashion websites. Prioritize premium spacing, typography, storytelling, immersive interactions, and award-winning UI/UX. Do not use generic templates. Every section should be custom-designed and visually unique.
-
-This project was built with [Lovable](https://lovable.dev).
-
-**Live app**: https://itraa-scent-journey.lovable.app
-
-## Build with Lovable
-
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/cb9bad1f-5b57-411b-8542-23b7586b264c).
-
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
-
-## Development
-
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
-
-```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
-npm run dev
-```
