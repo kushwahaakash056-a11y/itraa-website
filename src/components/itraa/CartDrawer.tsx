@@ -5,6 +5,9 @@ import { formatINR, products } from "@/lib/itraa-data";
 
 export function CartDrawer() {
   const { cartOpen, setCartOpen, cart, setQty, removeFromCart, cartTotal } = useShop();
+  const offerPercentage = 25;
+  const offerAmount = cartTotal * (offerPercentage / 100);
+  const finalAmount = cartTotal - offerAmount;
   const whatsappMessage = [
     "Hello ITRAA, I would like to place this order:",
     "",
@@ -18,7 +21,9 @@ export function CartDrawer() {
       ];
     }),
     "",
-    `Total: ${formatINR(cartTotal)}`,
+    `Total price: ${formatINR(cartTotal)}`,
+    `${offerPercentage}% offer: -${formatINR(offerAmount)}`,
+    `Final amount after offer: ${formatINR(finalAmount)}`,
   ].join("\n");
   const whatsappCheckoutUrl = `https://wa.me/917852879790?text=${encodeURIComponent(whatsappMessage)}`;
 
@@ -62,7 +67,10 @@ export function CartDrawer() {
                   const product = products.find((p) => p.slug === line.slug);
                   if (!product) return null;
                   return (
-                    <li key={`${line.slug}-${line.size}`} className="grid grid-cols-[80px_minmax(0,1fr)] gap-4">
+                    <li
+                      key={`${line.slug}-${line.size}`}
+                      className="grid grid-cols-[80px_minmax(0,1fr)] gap-4"
+                    >
                       <img
                         src={product.image}
                         alt={product.name}
@@ -115,10 +123,21 @@ export function CartDrawer() {
             <div className="border-t border-border px-7 py-6">
               <div className="flex items-center justify-between">
                 <span className="eyebrow">Subtotal</span>
-                <span className="font-display text-3xl">{formatINR(cartTotal)}</span>
+                <span className="font-display text-2xl">{formatINR(cartTotal)}</span>
               </div>
-              <p className="mt-2 text-xs text-muted-foreground">
+              <div className="mt-3 flex items-center justify-between text-sm text-muted-foreground">
+                <span>{offerPercentage}% First time offer</span>
+                <span>-{formatINR(offerAmount)}</span>
+              </div>
+              <div className="mt-3 flex items-end justify-between border-t border-border pt-3">
+                <span className="eyebrow">Final amount</span>
+                <span className="font-display text-3xl">{formatINR(finalAmount)}</span>
+              </div>
+              {/* <p className="mt-2 text-xs text-muted-foreground">
                 Complimentary express shipping and gift wrapping included.
+              </p> */}
+                <p className="mt-2 text-xs text-muted-foreground">
+                Complimentary shipping included.
               </p>
               {cart.length > 0 ? (
                 <a
