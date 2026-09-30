@@ -32,7 +32,7 @@ const sections: PolicySection[] = [
   },
   {
     title: "Questions",
-    paragraphs: ["For questions about a product or this notice, please contact maison@itraa.com."],
+    paragraphs: ["For questions about a product or this notice, please contact hello@itraa.in."],
   },
 ];
 
@@ -49,7 +49,7 @@ export const Route = createFileRoute("/disclaimer")({
   }),
   component: () => (
     <PolicyPage
-      eyebrow="Maison information"
+      eyebrow="ITRAA Perfum information"
       title="Disclaimer"
       intro="Important guidance on fragrance descriptions, safe use and the information presented on this website."
       sections={sections}

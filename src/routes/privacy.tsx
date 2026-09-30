@@ -33,7 +33,7 @@ const sections: PolicySection[] = [
   {
     title: "Your choices",
     paragraphs: [
-      "Depending on your location, you may request access, correction, deletion, restriction, portability or objection, and may withdraw consent. Contact maison@itraa.com to make a request. You may also complain to your local data protection authority.",
+      "Depending on your location, you may request access, correction, deletion, restriction, portability or objection, and may withdraw consent. Contact hello@itraa.in to make a request. You may also complain to your local data protection authority.",
     ],
   },
   {
@@ -58,7 +58,7 @@ export const Route = createFileRoute("/privacy")({
   }),
   component: () => (
     <PolicyPage
-      eyebrow="Maison information"
+      eyebrow="ITRAA Perfum information"
       title="Privacy Policy"
       intro="This notice explains what personal information ITRAA handles, why we use it and the choices available to you."
       sections={sections}

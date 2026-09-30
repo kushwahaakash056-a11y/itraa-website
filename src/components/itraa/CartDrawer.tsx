@@ -20,7 +20,7 @@ export function CartDrawer() {
     "",
     `Total: ${formatINR(cartTotal)}`,
   ].join("\n");
-  const whatsappCheckoutUrl = `https://wa.me/919680460557?text=${encodeURIComponent(whatsappMessage)}`;
+  const whatsappCheckoutUrl = `https://wa.me/917852879790?text=${encodeURIComponent(whatsappMessage)}`;
 
   return (
     <AnimatePresence>

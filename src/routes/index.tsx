@@ -10,7 +10,7 @@ import { Testimonials } from "@/components/itraa/Testimonials";
 import { InstagramGallery } from "@/components/itraa/InstagramGallery";
 import { Newsletter } from "@/components/itraa/Newsletter";
 
-const title = "ITRAA — Luxury Fragrance Maison | Wear Your Aura";
+const title = "ITRAA Perfum | Wear Your Aura";
 const description =
   "ITRAA composes slow, hand-bottled luxury perfume. Floral, oud, fresh and signature collections crafted from premium fragrance oils.";
 

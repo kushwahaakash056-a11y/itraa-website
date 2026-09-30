@@ -1,25 +1,34 @@
-import heroBottle from "@/assets/hero-bottle.jpg";
 import floral from "@/assets/collection-floral.jpg";
 import oud from "@/assets/collection-oud.jpg";
 import fresh from "@/assets/collection-fresh.jpg";
 import signature from "@/assets/collection-signature.jpg";
 import atelier from "@/assets/story-atelier.jpg";
-import signatureHero from "@/assets/signature-hero.jpg";
+import storyCrafting from "@/assets/story-crafting.png";
 import ig1 from "@/assets/ig-1.jpg";
 import ig2 from "@/assets/ig-2.jpg";
 import ig3 from "@/assets/ig-3.jpg";
 import ig4 from "@/assets/ig-4.jpg";
 import ig5 from "@/assets/ig-5.jpg";
 import ig6 from "@/assets/ig-6.jpg";
+import homepageHero from "@/assets/homepage-hero.jpg";
+import arabicaImage from "@/assets/products/arabica.jpg";
+import liberaImage from "@/assets/products/libera.jpg";
+import obsidianImage from "@/assets/products/obsidian.jpg";
+import revaImage from "@/assets/products/reva.jpg";
+import rogueImage from "@/assets/products/rogue.jpg";
+import vanillaNoirImage from "@/assets/products/vanilla-noir.jpg";
+import velocityImage from "@/assets/products/velocity.jpg";
+import velorisImage from "@/assets/products/veloris.jpg";
 
 export const images = {
-  heroBottle,
+  heroBottle: homepageHero,
   floral,
   oud,
   fresh,
   signature,
   atelier,
-  signatureHero,
+  storyCrafting,
+  signatureHero: arabicaImage,
   instagram: [ig1, ig2, ig3, ig4, ig5, ig6],
 };
 
@@ -106,8 +115,8 @@ export const products: Product[] = [
     ],
     rating: 4.9,
     reviews: 218,
-    image: heroBottle,
-    gallery: [heroBottle, signatureHero, signature],
+    image: velocityImage,
+    gallery: [velocityImage],
     description:
       "Bright citrus and aromatic woods move with effortless energy. Velocity is a clean, confident signature designed to stay with you from first light to late evening.",
     ingredients:
@@ -134,8 +143,8 @@ export const products: Product[] = [
     ],
     rating: 4.8,
     reviews: 164,
-    image: oud,
-    gallery: [oud, signatureHero, heroBottle],
+    image: obsidianImage,
+    gallery: [obsidianImage],
     description:
       "Dark woods, saffron and a smooth leather accord create a deep, polished trail. Obsidian is composed for evenings that call for quiet confidence.",
     ingredients:
@@ -162,8 +171,8 @@ export const products: Product[] = [
     ],
     rating: 4.8,
     reviews: 187,
-    image: signatureHero,
-    gallery: [signatureHero, ig4, heroBottle],
+    image: rogueImage,
+    gallery: [rogueImage],
     description:
       "Spiced citrus breaks into smoky amber and dry cedar. ROGUE is bold without being loud—a modern scent with an unmistakable edge.",
     ingredients:
@@ -190,8 +199,8 @@ export const products: Product[] = [
     ],
     rating: 4.7,
     reviews: 156,
-    image: fresh,
-    gallery: [fresh, ig2, heroBottle],
+    image: velorisImage,
+    gallery: [velorisImage],
     description:
       "A cool rush of mandarin and green leaves settles into vetiver and soft musk. Veloris feels crisp, refined and endlessly wearable.",
     ingredients:
@@ -218,8 +227,8 @@ export const products: Product[] = [
     ],
     rating: 4.9,
     reviews: 204,
-    image: oud,
-    gallery: [oud, ig5, signatureHero],
+    image: arabicaImage,
+    gallery: [arabicaImage],
     description:
       "Roasted coffee, cardamom and warm resin unfold over a velvety oud base. Arabica is a rich premium composition with exceptional depth.",
     ingredients:
@@ -246,8 +255,8 @@ export const products: Product[] = [
     ],
     rating: 4.8,
     reviews: 173,
-    image: floral,
-    gallery: [floral, ig3, heroBottle],
+    image: revaImage,
+    gallery: [revaImage],
     description:
       "Luminous jasmine and rose petals bloom over cashmere musk. Floreva is soft, graceful and memorable without ever feeling heavy.",
     ingredients:
@@ -274,8 +283,8 @@ export const products: Product[] = [
     ],
     rating: 4.7,
     reviews: 149,
-    image: ig2,
-    gallery: [ig2, fresh, heroBottle],
+    image: liberaImage,
+    gallery: [liberaImage],
     description:
       "Sparkling citrus, lavender and clean woods create an airy sense of freedom. Libera is effortless, modern and made for every day.",
     ingredients:
@@ -302,8 +311,8 @@ export const products: Product[] = [
     ],
     rating: 4.9,
     reviews: 231,
-    image: ig5,
-    gallery: [ig5, signatureHero, oud],
+    image: vanillaNoirImage,
+    gallery: [vanillaNoirImage],
     description:
       "Madagascan vanilla turns dark and sophisticated with amber, cacao and polished woods. Vanilla Noir is indulgent, smooth and distinctly premium.",
     ingredients:
@@ -342,27 +351,27 @@ export const noteFamilies = [
 export const testimonials = [
   {
     quote:
-      "I have worn the same house fragrance for eleven years. Velocity replaced it in a single afternoon.",
-    name: "Amara Sethi",
-    role: "Creative Director, Milan",
+      "Arabica has such a warm and rich fragrance. The coffee and sweet spicy notes are noticeable but not overpowering. I personally loved it for evening wear, especially in cooler weather.",
+    name: "Ruchi Patel",
+    role: "Jaipur",
   },
   {
     quote:
-      "Obsidian is the only oud I have found that feels modern rather than nostalgic. It reads as tailoring, not perfume.",
-    name: "Julien Marchand",
-    role: "Architect, Paris",
+      "Vanilla Noir is soft, creamy and very comforting. I thought it might be too sweet, but it’s actually quite balanced. It settles beautifully after some time and feels really elegant.",
+    name: "Pankhuri Jain",
+    role: "Jaipur",
   },
   {
     quote:
-      "The packaging alone deserves a shelf. What is inside deserves the skin. Nothing about ITRAA feels rushed.",
-    name: "Hana Kobayashi",
-    role: "Editor, Tokyo",
+      "Velocity is fresh, clean and very easy to wear. I’ve used it for office and casual outings, and it never feels too strong. The citrusy freshness makes it a really nice everyday fragrance.",
+    name: "Arushi Chauhan",
+    role: "Jaipur",
   },
   {
     quote:
-      "Six people asked me what I was wearing in one evening. That has never happened before.",
-    name: "Sofia Almeida",
-    role: "Gallerist, Lisbon",
+      "Obsidian really impressed me. It starts fresh and then settles into a deeper, more premium fragrance. I wore it in the evening and could still notice it on my clothes hours later. Definitely feels worth the price.",
+    name: "Abhishek Bhatt",
+    role: "Jaipur",
   },
 ];
 

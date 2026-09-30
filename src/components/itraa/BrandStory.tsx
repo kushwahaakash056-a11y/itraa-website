@@ -12,7 +12,7 @@ export function BrandStory() {
       <div className="shell grid gap-14 lg:grid-cols-12 lg:gap-16">
         <div ref={media} className="relative lg:col-span-6 lg:col-start-1">
           <img
-            src={images.atelier}
+            src={images.storyCrafting}
             alt="ITRAA perfumer blending fragrance oils in the atelier"
             loading="lazy"
             width={1200}

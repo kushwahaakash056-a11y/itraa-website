@@ -46,7 +46,7 @@ export function PolicyPage({
         ))}
       </div>
       <p className="mt-8 text-xs leading-relaxed text-muted-foreground">
-        Last updated: 26 September 2026. For questions about this policy, contact maison@itraa.com.
+        Last updated: 26 September 2026. For questions about this policy, contact hello@itraa.in.
       </p>
     </div>
   );

@@ -20,7 +20,7 @@ const sections: PolicySection[] = [
   {
     title: "Incorrect or damaged items",
     paragraphs: [
-      "If your parcel arrives damaged or contains the wrong item, contact maison@itraa.com with your order number and clear photographs. We will review the issue and arrange an appropriate resolution.",
+      "If your parcel arrives damaged or contains the wrong item, contact hello@itraa.in with your order number and clear photographs. We will review the issue and arrange an appropriate resolution.",
     ],
   },
   {
@@ -33,7 +33,7 @@ const sections: PolicySection[] = [
   {
     title: "Contact",
     paragraphs: [
-      "For cancellations or refund questions, email maison@itraa.com and include your order reference.",
+      "For cancellations or refund questions, email hello@itraa.in and include your order reference.",
     ],
   },
 ];
@@ -51,7 +51,7 @@ export const Route = createFileRoute("/refunds")({
   }),
   component: () => (
     <PolicyPage
-      eyebrow="Maison information"
+      eyebrow="ITRAA Perfum information"
       title="Refund & Cancellation Policy"
       intro="How to cancel before dispatch, when a refund is available and what happens after your return reaches us."
       sections={sections}

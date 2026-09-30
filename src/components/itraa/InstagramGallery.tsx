@@ -14,7 +14,7 @@ export function InstagramGallery() {
             </h2>
           </div>
           <a
-            href="https://instagram.com"
+            href="https://www.instagram.com/itraa_perfumery"
             target="_blank"
             rel="noreferrer noopener"
             className="btn-ghost-luxe"

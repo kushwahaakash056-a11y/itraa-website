@@ -138,9 +138,8 @@ export function Hero() {
 
           <div data-hero-fade className="mt-16 flex flex-wrap gap-10">
             {[
-              ["12h+", "Wear time"],
-              ["24%", "Oil concentration"],
-              ["60+", "Countries"],
+              ["8h+", "Wear time"],
+              ["30%", "Oil concentration"],
             ].map(([value, label]) => (
               <div key={label}>
                 <p className="font-display text-3xl">{value}</p>
@@ -159,7 +158,7 @@ export function Hero() {
           >
             <img
               src={images.heroBottle}
-              alt="ITRAA Velocity luxury perfume bottle in sunlight"
+              alt="ITRAA Veloris and Reva luxury perfume bottles"
               width={1200}
               height={1504}
               fetchPriority="high"
@@ -170,9 +169,9 @@ export function Hero() {
             data-parallax="60"
             className="glass-luxe absolute -bottom-4 left-0 hidden rounded-2xl px-6 py-5 sm:block"
           >
-            <p className="eyebrow">Signature</p>
-            <p className="mt-2 font-serif text-xl">Velocity</p>
-            <p className="mt-1 text-xs text-muted-foreground">Amber · Iris · Sandalwood</p>
+            <p className="eyebrow">ITRAA Perfum</p>
+            <p className="mt-2 font-serif text-xl">Veloris &amp; Reva</p>
+            <p className="mt-1 text-xs text-muted-foreground">Floral · Amber · Musk</p>
           </div>
         </div>
       </div>

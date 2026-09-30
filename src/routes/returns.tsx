@@ -32,7 +32,7 @@ const sections: PolicySection[] = [
   {
     title: "How to begin",
     paragraphs: [
-      "Email maison@itraa.com with your order reference and the item you wish to return. We will confirm eligibility and next steps.",
+      "Email hello@itraa.in with your order reference and the item you wish to return. We will confirm eligibility and next steps.",
     ],
   },
 ];
@@ -50,7 +50,7 @@ export const Route = createFileRoute("/returns")({
   }),
   component: () => (
     <PolicyPage
-      eyebrow="Maison information"
+      eyebrow="ITRAA Perfum information"
       title="Return Policy"
       intro="Our return process is designed to be clear, careful and respectful of fragrance hygiene requirements."
       sections={sections}

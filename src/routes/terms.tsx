@@ -59,7 +59,7 @@ export const Route = createFileRoute("/terms")({
   }),
   component: () => (
     <PolicyPage
-      eyebrow="Maison information"
+      eyebrow="ITRAA Perfum information"
       title="Terms & Conditions"
       intro="These terms explain how you may use the ITRAA website and how purchases from our boutique are formed and fulfilled."
       sections={sections}

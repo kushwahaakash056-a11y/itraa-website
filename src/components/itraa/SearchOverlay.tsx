@@ -29,7 +29,7 @@ export function SearchOverlay() {
         >
           <div className="shell flex h-full flex-col py-8">
             <div className="flex items-center justify-between">
-              <span className="eyebrow">Search the maison</span>
+              <span className="eyebrow">Search ITRAA Perfum</span>
               <button
                 aria-label="Close search"
                 onClick={() => setSearchOpen(false)}

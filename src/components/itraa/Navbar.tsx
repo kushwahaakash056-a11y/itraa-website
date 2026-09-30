@@ -178,7 +178,7 @@ export function Navbar() {
                 </motion.button>
               </nav>
               <div className="gold-rule mt-auto" />
-              <p className="eyebrow mt-6">Maison de Parfum — Est. 2019</p>
+              <p className="eyebrow mt-6">ITRAA Perfum — Est. 2019</p>
             </div>
           </motion.div>
         )}

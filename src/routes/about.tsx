@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { images } from "@/lib/itraa-data";
 import { useReveal } from "@/lib/use-reveal";
 
-const title = "About ITRAA — A Maison of Slow Perfumery";
+const title = "About ITRAA Perfum — Slow Perfumery";
 const description =
   "The story of ITRAA: a small atelier, nineteen raw materials and a refusal to release anything merely pleasant.";
 
@@ -33,12 +33,12 @@ function AboutPage() {
           data-reveal
           className="mt-6 max-w-4xl font-display text-[clamp(2.6rem,6.4vw,5.6rem)] leading-[1.02]"
         >
-          A maison built on <span className="italic text-gold">patience</span>
+          ITRAA Perfum, built on <span className="italic text-gold">patience</span>
         </h1>
 
         <div data-reveal className="mt-16 overflow-hidden rounded-[30px]">
           <img
-            src={images.atelier}
+            src={images.storyCrafting}
             alt="The ITRAA atelier"
             loading="lazy"
             width={1200}

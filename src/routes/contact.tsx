@@ -45,10 +45,10 @@ function ContactPage() {
           <div data-reveal className="gold-rule my-10 max-w-[180px]" />
           <dl data-reveal className="space-y-8 text-sm">
             {[
-              ["Boutique", "12 Rue des Parfumeurs, Grasse, France"],
-              ["Email", "maison@itraa.com"],
-              ["Telephone", "+33 4 93 00 00 00"],
-              ["Hours", "Tuesday – Saturday, 10:00 – 19:00"],
+              ["Location", "Jaipur, Rajasthan"],
+              ["Email", "hello@itraa.in"],
+              ["Call or WhatsApp", "+91 78528 79790"],
+              ["Hours", "Monday to Saturday, 09:00 – 20:00"],
             ].map(([term, value]) => (
               <div key={term}>
                 <dt className="eyebrow">{term}</dt>
@@ -120,7 +120,7 @@ function ContactPage() {
               role="status"
               className="mt-4 text-center text-xs leading-relaxed text-muted-foreground"
             >
-              Your enquiry has been noted. A maison advisor will reply within two working days.
+              Your enquiry has been noted. An ITRAA Perfum advisor will reply within two working days.
             </p>
           )}
         </form>
@@ -140,7 +140,7 @@ function ContactPage() {
             ],
             [
               "Private appointments",
-              "Boutique consultations are available Tuesday to Saturday and last approximately 45 minutes.",
+              "Boutique consultations are available Monday to Saturday and last approximately 45 minutes.",
             ],
           ].map(([heading, copy]) => (
             <article key={heading}>

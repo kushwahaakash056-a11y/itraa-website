@@ -27,7 +27,7 @@ function CollectionsPage() {
   return (
     <div ref={root} className="shell pb-32 pt-40">
       <p data-reveal className="eyebrow">
-        The Maison
+        ITRAA Perfum
       </p>
       <h1
         data-reveal

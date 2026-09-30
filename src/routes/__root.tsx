@@ -34,7 +34,7 @@ function NotFoundComponent() {
         </p>
         <div className="mt-8">
           <Link to="/" className="btn-luxe">
-            Return to the maison
+            Return to ITRAA Perfum
           </Link>
         </div>
       </div>
@@ -80,14 +80,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "ITRAA — Luxury Fragrance Maison" },
+      { title: "ITRAA Perfum" },
       {
         name: "description",
         content:
           "ITRAA composes slow, hand-bottled luxury perfume from premium fragrance oils.",
       },
       { name: "author", content: "ITRAA Parfums" },
-      { property: "og:title", content: "ITRAA — Luxury Fragrance Maison" },
+      { property: "og:title", content: "ITRAA Perfum" },
       {
         property: "og:description",
         content:

@@ -40,7 +40,7 @@ export function FloatingUtilities() {
           )}
         </AnimatePresence>
         <a
-          href="https://wa.me/919680460557"
+          href="https://wa.me/917852879790"
           target="_blank"
           rel="noreferrer noopener"
           aria-label="Chat with a fragrance advisor on WhatsApp"

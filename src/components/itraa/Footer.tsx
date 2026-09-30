@@ -9,7 +9,7 @@ const columns = [
       { label: "Home", to: "/" },
       { label: "Collections", to: "/collections" },
       { label: "Shop", to: "/shop" },
-      { label: "About the Maison", to: "/about" },
+      { label: "About ITRAA Perfum", to: "/about" },
     ],
   },
   {
@@ -45,14 +45,14 @@ export function Footer() {
               <BrandLogo className="h-36 w-auto" />
             </div>
             <p className="mt-6 max-w-xs text-sm leading-relaxed text-muted-foreground">
-              A maison of slow perfumery. Hand-composed in small batches, shipped worldwide in cedar
+              ITRAA Perfum creates slow perfumery. Hand-composed in small batches, shipped worldwide in cedar
               and cotton.
             </p>
             <div className="mt-8 flex gap-3">
               {[Camera, Share2, MessageCircle].map((Icon, i) => (
                 <a
                   key={i}
-                  href="https://instagram.com"
+                  href="https://www.instagram.com/itraa_perfumery"
                   target="_blank"
                   rel="noreferrer noopener"
                   aria-label="ITRAA social profile"

@@ -48,7 +48,7 @@ export function Preloader() {
               transition={{ delay: 0.4, duration: 0.8 }}
               className="eyebrow mt-6"
             >
-              Maison de Parfum
+              ITRAA Perfum
             </motion.p>
           </div>
         </motion.div>

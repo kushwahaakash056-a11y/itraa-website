@@ -7,6 +7,10 @@ import type { Product } from "@/lib/itraa-data";
 
 export function BestSellers() {
   const root = useReveal<HTMLElement>({ y: 56, stagger: 0.1 });
+  const featuredSlugs = ["velocity", "vanilla-noir", "arabica", "obsidian"];
+  const bestSellers = featuredSlugs
+    .map((slug) => products.find((product) => product.slug === slug))
+    .filter((product): product is Product => Boolean(product));
 
   return (
     <section ref={root} id="bestsellers" className="shell py-28 lg:py-40">
@@ -28,8 +32,13 @@ export function BestSellers() {
       </div>
 
       <div className="mt-16 grid gap-x-6 gap-y-14 sm:grid-cols-2 lg:grid-cols-4">
-        {products.map((product) => (
-          <ProductCard key={product.slug} product={product} />
+        {bestSellers.map((product) => (
+          <ProductCard
+            key={product.slug}
+            product={product}
+            showVariants={false}
+            showReviews={false}
+          />
         ))}
       </div>
     </section>
@@ -39,9 +48,13 @@ export function BestSellers() {
 export function ProductCard({
   product,
   showQuickAdd = true,
+  showVariants = true,
+  showReviews = true,
 }: {
   product: Product;
   showQuickAdd?: boolean;
+  showVariants?: boolean;
+  showReviews?: boolean;
 }) {
   const { addToCart, toggleWishlist, wishlist, setQuickView } = useShop();
   const wished = wishlist.includes(product.slug);
@@ -106,31 +119,35 @@ export function ProductCard({
         </span>
       </div>
 
-      <div className="mt-3 grid grid-cols-3 gap-1.5">
-        {product.variants.map((variant) => (
-          <div key={variant.size} className="rounded-lg bg-secondary px-2 py-2 text-center">
-            <p className="font-button text-[9px] uppercase tracking-[0.12em] text-muted-foreground">
-              {variant.size}
-            </p>
-            <p className="mt-1 font-button text-[10px]">{formatINR(variant.price)}</p>
-          </div>
-        ))}
-      </div>
-
-      <div className="mt-3 flex items-center gap-2">
-        <div className="flex gap-0.5">
-          {[...Array(5)].map((_, i) => (
-            <Star
-              key={i}
-              className={`h-3 w-3 ${i < Math.round(product.rating) ? "fill-gold text-gold" : "text-border"}`}
-              strokeWidth={1}
-            />
+      {showVariants && (
+        <div className="mt-3 grid grid-cols-3 gap-1.5">
+          {product.variants.map((variant) => (
+            <div key={variant.size} className="rounded-lg bg-secondary px-2 py-2 text-center">
+              <p className="font-button text-[9px] uppercase tracking-[0.12em] text-muted-foreground">
+                {variant.size}
+              </p>
+              <p className="mt-1 font-button text-[10px]">{formatINR(variant.price)}</p>
+            </div>
           ))}
         </div>
-        <span className="text-[11px] text-muted-foreground">
-          {product.rating} · {product.reviews} reviews
-        </span>
-      </div>
+      )}
+
+      {showReviews && (
+        <div className="mt-3 flex items-center gap-2">
+          <div className="flex gap-0.5">
+            {[...Array(5)].map((_, i) => (
+              <Star
+                key={i}
+                className={`h-3 w-3 ${i < Math.round(product.rating) ? "fill-gold text-gold" : "text-border"}`}
+                strokeWidth={1}
+              />
+            ))}
+          </div>
+          <span className="text-[11px] text-muted-foreground">
+            {product.rating} · {product.reviews} reviews
+          </span>
+        </div>
+      )}
     </article>
   );
 }

@@ -62,7 +62,7 @@ export function Newsletter() {
           </form>
           {sent && (
             <p className="mt-4 font-button text-[10px] uppercase tracking-[0.24em] text-gold">
-              Welcome to the maison
+              Welcome to ITRAA Perfum
             </p>
           )}
         </div>
