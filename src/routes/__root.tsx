@@ -117,7 +117,8 @@ function RootShell({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <head>
-        <HeadContent />
+        <HeadContent/>
+        <script defer src="https://cloud.umami.is/script.js" data-website-id="0f66262e-bbaf-4fc7-b36c-dfdf8a603dce"></script>
       </head>
       <body>
         {children}
