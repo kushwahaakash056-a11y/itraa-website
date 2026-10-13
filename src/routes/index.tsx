@@ -9,6 +9,7 @@ import { WhyItraa } from "@/components/itraa/WhyItraa";
 import { Testimonials } from "@/components/itraa/Testimonials";
 import { InstagramGallery } from "@/components/itraa/InstagramGallery";
 import { Newsletter } from "@/components/itraa/Newsletter";
+import { OfferPopup } from "@/components/itraa/OfferPopup";
 
 const title = "ITRAA Perfum | Wear Your Aura";
 const description =
@@ -31,7 +32,10 @@ export const Route = createFileRoute("/")({
 function Index() {
   return (
     <>
-      <Hero />
+      <OfferPopup />
+      <div className="hidden lg:block">
+        <Hero />
+      </div>
       <FeaturedCollections />
       <BrandStory />
       <SignatureSection />

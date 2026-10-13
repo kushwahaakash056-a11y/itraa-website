@@ -6,8 +6,17 @@ type BrandLogoProps = {
 };
 
 export function BrandLogo({ className = "h-16 w-auto", onClick }: BrandLogoProps) {
+  const handleClick = () => {
+    onClick?.();
+
+    // The home link may already be active, so explicitly restore the top position.
+    window.requestAnimationFrame(() => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  };
+
   return (
-    <Link to="/" aria-label="ITRAA home" onClick={onClick} className="inline-flex shrink-0">
+    <Link to="/" aria-label="ITRAA home" onClick={handleClick} className="inline-flex shrink-0">
       <img
         src="/itraa-logo-light.png"
         alt="ITRAA — Pure Essence. Lasting Memories."

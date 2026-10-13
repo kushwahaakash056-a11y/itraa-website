@@ -2,12 +2,15 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Minus, Plus, X } from "lucide-react";
 import { useShop } from "@/lib/shop-store";
 import { formatINR, products } from "@/lib/itraa-data";
+import { PriceDisplay } from "@/components/itraa/PriceDisplay";
 
 export function CartDrawer() {
   const { cartOpen, setCartOpen, cart, setQty, removeFromCart, cartTotal } = useShop();
-  const offerPercentage = 25;
-  const offerAmount = cartTotal * (offerPercentage / 100);
-  const finalAmount = cartTotal - offerAmount;
+  const cartOldTotal = cart.reduce((total, line) => {
+    const product = products.find((item) => item.slug === line.slug);
+    const variant = product?.variants.find((item) => item.size === line.size);
+    return total + (variant?.oldPrice ?? 0) * line.qty;
+  }, 0);
   const whatsappMessage = [
     "Hello ITRAA, I would like to place this order:",
     "",
@@ -22,8 +25,6 @@ export function CartDrawer() {
     }),
     "",
     `Total price: ${formatINR(cartTotal)}`,
-    `${offerPercentage}% offer: -${formatINR(offerAmount)}`,
-    `Final amount after offer: ${formatINR(finalAmount)}`,
   ].join("\n");
   const whatsappCheckoutUrl = `https://wa.me/917852879790?text=${encodeURIComponent(whatsappMessage)}`;
 
@@ -66,6 +67,9 @@ export function CartDrawer() {
                 {cart.map((line) => {
                   const product = products.find((p) => p.slug === line.slug);
                   if (!product) return null;
+                  const variant =
+                    product.variants.find((item) => item.size === line.size) ??
+                    product.variants[0]!;
                   return (
                     <li
                       key={`${line.slug}-${line.size}`}
@@ -106,12 +110,12 @@ export function CartDrawer() {
                               <Plus className="h-3.5 w-3.5" strokeWidth={1.4} />
                             </button>
                           </div>
-                          <span className="font-button text-xs tracking-[0.18em]">
-                            {formatINR(
-                              (product.variants.find((item) => item.size === line.size)?.price ??
-                                product.price) * line.qty,
-                            )}
-                          </span>
+                          <PriceDisplay
+                            oldPrice={variant.oldPrice * line.qty}
+                            price={variant.price * line.qty}
+                            size="xs"
+                            className="justify-end"
+                          />
                         </div>
                       </div>
                     </li>
@@ -125,20 +129,20 @@ export function CartDrawer() {
                 <span className="eyebrow">Subtotal</span>
                 <span className="font-display text-2xl">{formatINR(cartTotal)}</span>
               </div>
-              <div className="mt-3 flex items-center justify-between text-sm text-muted-foreground">
-                <span>{offerPercentage}% First time offer</span>
-                <span>-{formatINR(offerAmount)}</span>
-              </div>
-              <div className="mt-3 flex items-end justify-between border-t border-border pt-3">
-                <span className="eyebrow">Final amount</span>
-                <span className="font-display text-3xl">{formatINR(finalAmount)}</span>
-              </div>
+              {cartOldTotal > cartTotal && (
+                <div className="mt-2 flex items-center justify-between text-xs text-muted-foreground">
+                  <span>
+                    MRP <span className="line-through">{formatINR(cartOldTotal)}</span>
+                  </span>
+                  <span className="font-medium text-gold">
+                    You save {formatINR(cartOldTotal - cartTotal)}
+                  </span>
+                </div>
+              )}
               {/* <p className="mt-2 text-xs text-muted-foreground">
                 Complimentary express shipping and gift wrapping included.
               </p> */}
-                <p className="mt-2 text-xs text-muted-foreground">
-                Complimentary shipping included.
-              </p>
+              <p className="mt-2 text-xs text-muted-foreground">Complimentary shipping included.</p>
               {cart.length > 0 ? (
                 <a
                   href={whatsappCheckoutUrl}

@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { Eye, Heart, Star } from "lucide-react";
-import { formatINR, products } from "@/lib/itraa-data";
+import { products } from "@/lib/itraa-data";
+import { PriceDisplay } from "@/components/itraa/PriceDisplay";
 import { useShop } from "@/lib/shop-store";
 import { useReveal } from "@/lib/use-reveal";
 import type { Product } from "@/lib/itraa-data";
@@ -13,33 +14,39 @@ export function BestSellers() {
     .filter((product): product is Product => Boolean(product));
 
   return (
-    <section ref={root} id="bestsellers" className="shell py-28 lg:py-40">
-      <div className="flex flex-wrap items-end justify-between gap-8">
-        <div>
-          <p data-reveal className="eyebrow">
-            04 — Best Sellers
-          </p>
-          <h2
+    <section ref={root} id="bestsellers" className="hidden py-28 md:block lg:py-40">
+      <div className="shell">
+        <div className="flex flex-wrap items-end justify-between gap-8">
+          <div>
+            <p data-reveal className="eyebrow">
+              Best Sellers
+            </p>
+            <h2
+              data-reveal
+              className="mt-6 font-display text-[clamp(2.4rem,5vw,4.4rem)] leading-[1.03]"
+            >
+              The most <span className="italic text-gold">worn</span>
+            </h2>
+          </div>
+          <Link
             data-reveal
-            className="mt-6 font-display text-[clamp(2.4rem,5vw,4.4rem)] leading-[1.03]"
+            to="/shop"
+            className="link-underline font-button text-[11px] uppercase tracking-[0.24em]"
           >
-            The most <span className="italic text-gold">worn</span>
-          </h2>
+            View all fragrances
+          </Link>
         </div>
-        <Link data-reveal to="/shop" className="link-underline font-button text-[11px] uppercase tracking-[0.24em]">
-          View all fragrances
-        </Link>
-      </div>
 
-      <div className="mt-16 grid gap-x-6 gap-y-14 sm:grid-cols-2 lg:grid-cols-4">
-        {bestSellers.map((product) => (
-          <ProductCard
-            key={product.slug}
-            product={product}
-            showVariants={false}
-            showReviews={false}
-          />
-        ))}
+        <div className="mt-16 grid gap-x-6 gap-y-14 sm:grid-cols-2 lg:grid-cols-4">
+          {bestSellers.map((product) => (
+            <ProductCard
+              key={product.slug}
+              product={product}
+              showVariants={false}
+              showReviews={false}
+            />
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -84,7 +91,9 @@ export function ProductCard({
           />
         </button>
 
-        <div className={`absolute bottom-4 flex translate-y-6 gap-2 opacity-0 transition-all duration-600 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-y-0 group-hover:opacity-100 ${showQuickAdd ? "inset-x-4" : "right-4"}`}>
+        <div
+          className={`absolute bottom-4 flex translate-y-6 gap-2 opacity-0 transition-all duration-600 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-y-0 group-hover:opacity-100 ${showQuickAdd ? "inset-x-4" : "right-4"}`}
+        >
           {showQuickAdd && (
             <button
               onClick={() => addToCart(product.slug)}
@@ -114,9 +123,12 @@ export function ProductCard({
           </Link>
           <p className="mt-1 text-xs text-muted-foreground">{product.subtitle}</p>
         </div>
-        <span className="shrink-0 font-button text-xs tracking-[0.12em]">
-          From {formatINR(product.price)}
-        </span>
+        <PriceDisplay
+          oldPrice={product.oldPrice}
+          price={product.price}
+          prefix="From"
+          className="justify-end font-button tracking-[0.08em]"
+        />
       </div>
 
       {showVariants && (
@@ -126,7 +138,12 @@ export function ProductCard({
               <p className="font-button text-[9px] uppercase tracking-[0.12em] text-muted-foreground">
                 {variant.size}
               </p>
-              <p className="mt-1 font-button text-[10px]">{formatINR(variant.price)}</p>
+              <PriceDisplay
+                oldPrice={variant.oldPrice}
+                price={variant.price}
+                size="xs"
+                className="mt-1 justify-center"
+              />
             </div>
           ))}
         </div>

@@ -29,7 +29,7 @@ export function BrandStory() {
 
         <div className="lg:col-span-5 lg:col-start-8 lg:self-center">
           <p data-reveal className="eyebrow">
-            02 — The House
+            The House
           </p>
           <h2
             ref={heading}

@@ -1,9 +1,10 @@
 import { useMemo, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Minus, Plus, ShoppingBag } from "lucide-react";
-import { formatINR, products } from "@/lib/itraa-data";
+import { formatINR, getDiscountPercent, products } from "@/lib/itraa-data";
 import type { Product } from "@/lib/itraa-data";
 import { ProductCard } from "@/components/itraa/BestSellers";
+import { PriceDisplay } from "@/components/itraa/PriceDisplay";
 import { useShop } from "@/lib/shop-store";
 import { useReveal } from "@/lib/use-reveal";
 
@@ -112,7 +113,12 @@ function ShopPage() {
                   [
                     "Price",
                     (p: (typeof products)[number]) =>
-                      p.variants.map((variant) => formatINR(variant.price)).join(" / "),
+                      p.variants
+                        .map(
+                          (variant) =>
+                            `${formatINR(variant.oldPrice)} → ${formatINR(variant.price)} (${getDiscountPercent(variant.oldPrice, variant.price)}% off)`,
+                        )
+                        .join(" / "),
                   ],
                   [
                     "Size",
@@ -160,7 +166,13 @@ function ShopPage() {
                   />
                   <div>
                     <p className="font-serif text-lg">{p.name}</p>
-                    <p className="text-xs text-muted-foreground">From {formatINR(p.price)}</p>
+                    <PriceDisplay
+                      oldPrice={p.oldPrice}
+                      price={p.price}
+                      prefix="From"
+                      size="xs"
+                      className="mt-1"
+                    />
                   </div>
                 </Link>
               ))}
@@ -260,6 +272,12 @@ function ShopPurchaseControls({ product }: { product: Product }) {
           Add · {formatINR(selectedVariant.price * quantity)}
         </button>
       </div>
+      <PriceDisplay
+        oldPrice={selectedVariant.oldPrice}
+        price={selectedVariant.price}
+        size="xs"
+        className="mt-3 justify-center"
+      />
     </div>
   );
 }

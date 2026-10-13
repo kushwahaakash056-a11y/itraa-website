@@ -13,7 +13,7 @@ export function FragranceNotes() {
       <div className="shell">
         <div className="max-w-xl">
           <p data-reveal className="eyebrow">
-            05 — The Pyramid
+            The Pyramid
           </p>
           <h2
             data-reveal

@@ -2,7 +2,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Link } from "@tanstack/react-router";
 import { X } from "lucide-react";
 import { useShop } from "@/lib/shop-store";
-import { formatINR } from "@/lib/itraa-data";
+import { PriceDisplay } from "@/components/itraa/PriceDisplay";
 
 export function QuickView() {
   const { quickView, setQuickView, addToCart } = useShop();
@@ -46,9 +46,16 @@ export function QuickView() {
                   {quickView.description}
                 </p>
                 <div className="gold-rule my-7" />
-                <div className="flex items-baseline gap-4">
-                  <span className="font-display text-3xl">From {formatINR(quickView.price)}</span>
-                  <span className="text-xs text-muted-foreground">30 ml · 50 ml · 100 ml</span>
+                <div>
+                  <PriceDisplay
+                    oldPrice={quickView.oldPrice}
+                    price={quickView.price}
+                    prefix="From"
+                    size="lg"
+                  />
+                  <span className="mt-2 block text-xs text-muted-foreground">
+                    30 ml · 50 ml · 100 ml
+                  </span>
                 </div>
                 <div className="mt-8 flex flex-wrap gap-3">
                   <button

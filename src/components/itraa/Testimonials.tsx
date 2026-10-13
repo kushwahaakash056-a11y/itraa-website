@@ -22,7 +22,7 @@ export function Testimonials() {
         <div className="grid gap-12 lg:grid-cols-[minmax(0,0.7fr)_minmax(0,1.3fr)] lg:items-center">
           <div>
             <p data-reveal className="eyebrow">
-              07 — Voices
+              Voices
             </p>
             <h2
               data-reveal

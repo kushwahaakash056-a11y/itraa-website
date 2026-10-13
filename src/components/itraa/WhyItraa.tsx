@@ -12,7 +12,7 @@ export function WhyItraa() {
       <div className="grid gap-10 lg:grid-cols-[minmax(0,0.75fr)_minmax(0,1.25fr)]">
         <div className="lg:sticky lg:top-32 lg:self-start">
           <p data-reveal className="eyebrow">
-            06 — Why ITRAA
+            Why ITRAA
           </p>
           <h2
             data-reveal

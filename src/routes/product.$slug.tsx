@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { Heart, Minus, Plus, RotateCw, Star } from "lucide-react";
-import { formatINR, products } from "@/lib/itraa-data";
+import { formatINR, getDiscountPercent, products } from "@/lib/itraa-data";
+import { PriceDisplay } from "@/components/itraa/PriceDisplay";
 import { useShop } from "@/lib/shop-store";
 import { useReveal } from "@/lib/use-reveal";
 
@@ -46,7 +47,7 @@ function ProductPage() {
     markViewed(product.slug);
     setActive(0);
     setSelectedSize(product.size);
-  }, [product.slug, markViewed]);
+  }, [product.slug, product.size, markViewed]);
 
   const related = products.filter((p) => p.slug !== product.slug).slice(0, 3);
   const wished = wishlist.includes(product.slug);
@@ -122,9 +123,12 @@ function ProductPage() {
             </span>
           </div>
 
-          <p data-reveal className="mt-8 font-display text-4xl">
-            {formatINR(selectedVariant.price)}
-          </p>
+          <PriceDisplay
+            oldPrice={selectedVariant.oldPrice}
+            price={selectedVariant.price}
+            size="lg"
+            className="mt-8"
+          />
 
           <div data-reveal className="mt-8">
             <p className="eyebrow">Choose size</p>
@@ -144,7 +148,13 @@ function ProductPage() {
                   <span className="block font-button text-[10px] uppercase tracking-[0.16em]">
                     {variant.size}
                   </span>
-                  <span className="mt-1 block text-xs">{formatINR(variant.price)}</span>
+                  <span className="mt-1 block text-xs font-medium">{formatINR(variant.price)}</span>
+                  <span className="mt-0.5 block text-[10px] text-muted-foreground line-through">
+                    {formatINR(variant.oldPrice)}
+                  </span>
+                  <span className="mt-1 block font-button text-[8px] font-medium tracking-[0.08em] text-gold">
+                    {getDiscountPercent(variant.oldPrice, variant.price)}% OFF
+                  </span>
                 </button>
               ))}
             </div>
@@ -160,10 +170,16 @@ function ProductPage() {
                 <Plus className="h-3.5 w-3.5" strokeWidth={1.4} />
               </button>
             </div>
-            <button className="btn-luxe" onClick={() => addToCart(product.slug, qty, selectedVariant.size)}>
+            <button
+              className="btn-luxe"
+              onClick={() => addToCart(product.slug, qty, selectedVariant.size)}
+            >
               Add to cart
             </button>
-            <button className="btn-ghost-luxe" onClick={() => addToCart(product.slug, qty, selectedVariant.size)}>
+            <button
+              className="btn-ghost-luxe"
+              onClick={() => addToCart(product.slug, qty, selectedVariant.size)}
+            >
               Buy now
             </button>
             <button
@@ -242,7 +258,13 @@ function ProductPage() {
                 />
               </div>
               <p className="mt-5 font-serif text-xl">{p.name}</p>
-              <p className="text-xs text-muted-foreground">From {formatINR(p.price)}</p>
+              <PriceDisplay
+                oldPrice={p.oldPrice}
+                price={p.price}
+                prefix="From"
+                size="xs"
+                className="mt-1"
+              />
             </Link>
           ))}
         </div>
@@ -252,9 +274,12 @@ function ProductPage() {
       <div className="glass-luxe fixed inset-x-0 bottom-0 z-[105] grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4 border-t px-5 py-4 lg:hidden">
         <div className="min-w-0">
           <p className="truncate font-serif text-base">{product.name}</p>
-          <p className="text-xs text-muted-foreground">
-            {selectedVariant.size} · {formatINR(selectedVariant.price)}
-          </p>
+          <PriceDisplay
+            oldPrice={selectedVariant.oldPrice}
+            price={selectedVariant.price}
+            prefix={`${selectedVariant.size} ·`}
+            size="xs"
+          />
         </div>
         <button
           onClick={() => addToCart(product.slug, qty, selectedVariant.size)}

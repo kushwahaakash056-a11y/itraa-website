@@ -54,7 +54,7 @@ export function SignatureSection() {
       <div className="shell relative grid gap-14 lg:grid-cols-12 lg:items-center">
         <div ref={copy} className="order-2 lg:order-1 lg:col-span-4">
           <p data-reveal className="eyebrow">
-            03 — Signature
+            Signature
           </p>
           <h2
             data-reveal

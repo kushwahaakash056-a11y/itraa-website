@@ -20,7 +20,7 @@ export function Newsletter() {
         />
         <div className="relative mx-auto max-w-3xl text-center">
           <p data-reveal className="eyebrow">
-            09 — Newsletter
+            Newsletter
           </p>
           <h2
             data-reveal

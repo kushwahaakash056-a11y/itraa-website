@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1125" role="img" aria-labelledby="title desc">
+  <title id="title">ITRAA limited-time offer</title>
+  <desc id="desc">A decorative placeholder offer image that can be replaced later.</desc>
+  <defs>
+    <radialGradient id="glow" cx="50%" cy="38%" r="72%">
+      <stop offset="0" stop-color="#734d34"/>
+      <stop offset="0.5" stop-color="#241713"/>
+      <stop offset="1" stop-color="#0c0908"/>
+    </radialGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#f5dfab"/>
+      <stop offset="0.5" stop-color="#b88b4b"/>
+      <stop offset="1" stop-color="#f1cf82"/>
+    </linearGradient>
+    <filter id="blur"><feGaussianBlur stdDeviation="38"/></filter>
+  </defs>
+  <rect width="900" height="1125" fill="url(#glow)"/>
+  <circle cx="90" cy="220" r="160" fill="#bd8557" opacity=".18" filter="url(#blur)"/>
+  <circle cx="820" cy="880" r="210" fill="#a86645" opacity=".16" filter="url(#blur)"/>
+  <rect x="34" y="34" width="832" height="1057" rx="34" fill="none" stroke="url(#gold)" stroke-width="2" opacity=".55"/>
+  <text x="450" y="150" fill="#ead19a" font-family="Georgia, serif" font-size="34" letter-spacing="15" text-anchor="middle">ITRAA</text>
+  <text x="450" y="218" fill="#fff8e8" font-family="Georgia, serif" font-size="29" font-style="italic" text-anchor="middle">A scent worth remembering</text>
+  <line x1="180" y1="267" x2="720" y2="267" stroke="#d5aa62" opacity=".7"/>
+  <text x="450" y="405" fill="#fffaf0" font-family="Georgia, serif" font-size="74" text-anchor="middle">A SPECIAL</text>
+  <text x="450" y="487" fill="url(#gold)" font-family="Georgia, serif" font-size="105" font-style="italic" text-anchor="middle">Offer</text>
+  <text x="450" y="558" fill="#d8c9b5" font-family="Arial, sans-serif" font-size="20" letter-spacing="7" text-anchor="middle">AWAITS YOU</text>
+  <g transform="translate(315 625)">
+    <rect x="55" y="0" width="160" height="65" rx="15" fill="#090706" stroke="#bd9458" stroke-width="3"/>
+    <rect x="23" y="55" width="224" height="300" rx="38" fill="#d2a76d" fill-opacity=".26" stroke="url(#gold)" stroke-width="4"/>
+    <rect x="52" y="90" width="166" height="205" rx="7" fill="#1e1511" stroke="#cfaa6f"/>
+    <text x="135" y="165" fill="#ecd49c" font-family="Georgia, serif" font-size="25" letter-spacing="7" text-anchor="middle">ITRAA</text>
+    <text x="135" y="211" fill="#fff8e8" font-family="Georgia, serif" font-size="27" font-style="italic" text-anchor="middle">Parfum</text>
+    <text x="135" y="259" fill="#cdbb9e" font-family="Arial, sans-serif" font-size="12" letter-spacing="4" text-anchor="middle">EAU DE PARFUM</text>
+  </g>
+  <rect x="245" y="1010" width="410" height="64" rx="32" fill="url(#gold)"/>
+  <text x="450" y="1051" fill="#1a110d" font-family="Arial, sans-serif" font-weight="700" font-size="18" letter-spacing="5" text-anchor="middle">EXPLORE COLLECTION</text>
+</svg>

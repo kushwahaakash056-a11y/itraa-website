@@ -4,12 +4,9 @@ import fresh from "@/assets/collection-fresh.jpg";
 import signature from "@/assets/collection-signature.jpg";
 import atelier from "@/assets/story-atelier.jpg";
 import storyCrafting from "@/assets/story-crafting.png";
-import ig1 from "@/assets/ig-1.jpg";
-import ig2 from "@/assets/ig-2.jpg";
-import ig3 from "@/assets/ig-3.jpg";
-import ig4 from "@/assets/ig-4.jpg";
-import ig5 from "@/assets/ig-5.jpg";
-import ig6 from "@/assets/ig-6.jpg";
+import instagramArabica from "@/assets/instagram-post-arabica.jpg";
+import instagramLibera from "@/assets/instagram-post-libera.jpg";
+import instagramReva from "@/assets/instagram-post-reva.jpg";
 import homepageHero from "@/assets/homepage-hero.jpg";
 import arabicaImage from "@/assets/products/arabica.jpg";
 import liberaImage from "@/assets/products/libera.jpg";
@@ -29,7 +26,7 @@ export const images = {
   atelier,
   storyCrafting,
   signatureHero: arabicaImage,
-  instagram: [ig1, ig2, ig3, ig4, ig5, ig6],
+  instagram: [instagramArabica, instagramLibera, instagramReva],
 };
 
 export type Collection = {
@@ -86,8 +83,13 @@ export type Product = {
   subtitle: string;
   collection: string;
   price: number;
+  oldPrice: number;
   size: string;
-  variants: { size: "30 ml" | "50 ml" | "100 ml"; price: number }[];
+  variants: {
+    size: "30 ml" | "50 ml" | "100 ml";
+    oldPrice: number;
+    price: number;
+  }[];
   rating: number;
   reviews: number;
   image: string;
@@ -100,18 +102,22 @@ export type Product = {
 
 export const formatINR = (price: number) => `₹${price.toLocaleString("en-IN")}`;
 
+export const getDiscountPercent = (oldPrice: number, price: number) =>
+  (((oldPrice - price) / oldPrice) * 100).toFixed(1);
+
 export const products: Product[] = [
   {
     slug: "velocity",
     name: "Velocity",
     subtitle: "Eau de Parfum",
     collection: "Signature",
-    price: 499,
+    price: 350,
+    oldPrice: 499,
     size: "30 ml",
     variants: [
-      { size: "30 ml", price: 499 },
-      { size: "50 ml", price: 699 },
-      { size: "100 ml", price: 1199 },
+      { size: "30 ml", oldPrice: 499, price: 350 },
+      { size: "50 ml", oldPrice: 699, price: 499 },
+      { size: "100 ml", oldPrice: 1199, price: 899 },
     ],
     rating: 4.9,
     reviews: 218,
@@ -134,12 +140,13 @@ export const products: Product[] = [
     name: "Obsidian",
     subtitle: "Extrait de Parfum",
     collection: "Oud",
-    price: 599,
+    price: 399,
+    oldPrice: 599,
     size: "30 ml",
     variants: [
-      { size: "30 ml", price: 599 },
-      { size: "50 ml", price: 799 },
-      { size: "100 ml", price: 1299 },
+      { size: "30 ml", oldPrice: 599, price: 399 },
+      { size: "50 ml", oldPrice: 799, price: 550 },
+      { size: "100 ml", oldPrice: 1299, price: 950 },
     ],
     rating: 4.8,
     reviews: 164,
@@ -162,12 +169,13 @@ export const products: Product[] = [
     name: "ROGUE",
     subtitle: "Eau de Parfum",
     collection: "Signature",
-    price: 599,
+    price: 399,
+    oldPrice: 599,
     size: "30 ml",
     variants: [
-      { size: "30 ml", price: 599 },
-      { size: "50 ml", price: 799 },
-      { size: "100 ml", price: 1299 },
+      { size: "30 ml", oldPrice: 599, price: 399 },
+      { size: "50 ml", oldPrice: 799, price: 550 },
+      { size: "100 ml", oldPrice: 1299, price: 950 },
     ],
     rating: 4.8,
     reviews: 187,
@@ -190,12 +198,13 @@ export const products: Product[] = [
     name: "Veloris",
     subtitle: "Eau de Parfum",
     collection: "Fresh",
-    price: 599,
+    price: 350,
+    oldPrice: 599,
     size: "30 ml",
     variants: [
-      { size: "30 ml", price: 599 },
-      { size: "50 ml", price: 799 },
-      { size: "100 ml", price: 1299 },
+      { size: "30 ml", oldPrice: 599, price: 350 },
+      { size: "50 ml", oldPrice: 799, price: 499 },
+      { size: "100 ml", oldPrice: 1299, price: 899 },
     ],
     rating: 4.7,
     reviews: 156,
@@ -205,8 +214,7 @@ export const products: Product[] = [
       "A cool rush of mandarin and green leaves settles into vetiver and soft musk. Veloris feels crisp, refined and endlessly wearable.",
     ingredients:
       "Alcohol Denat., Parfum (Fragrance), Aqua, Limonene, Citral. 15% concentration. Vegan and cruelty free.",
-    shipping:
-      "Complimentary worldwide express shipping. Delivered within 2–5 working days.",
+    shipping: "Complimentary worldwide express shipping. Delivered within 2–5 working days.",
     notes: {
       top: ["Green Mandarin", "Lemon"],
       heart: ["Fig Leaf", "Lavender"],
@@ -218,12 +226,13 @@ export const products: Product[] = [
     name: "Arabica",
     subtitle: "Premium Extrait de Parfum",
     collection: "Oud",
-    price: 599,
+    price: 399,
+    oldPrice: 599,
     size: "30 ml",
     variants: [
-      { size: "30 ml", price: 599 },
-      { size: "50 ml", price: 899 },
-      { size: "100 ml", price: 1399 },
+      { size: "30 ml", oldPrice: 599, price: 399 },
+      { size: "50 ml", oldPrice: 899, price: 550 },
+      { size: "100 ml", oldPrice: 1399, price: 950 },
     ],
     rating: 4.9,
     reviews: 204,
@@ -246,12 +255,13 @@ export const products: Product[] = [
     name: "Floreva",
     subtitle: "Eau de Parfum",
     collection: "Floral",
-    price: 599,
+    price: 399,
+    oldPrice: 599,
     size: "30 ml",
     variants: [
-      { size: "30 ml", price: 599 },
-      { size: "50 ml", price: 799 },
-      { size: "100 ml", price: 1299 },
+      { size: "30 ml", oldPrice: 599, price: 399 },
+      { size: "50 ml", oldPrice: 799, price: 550 },
+      { size: "100 ml", oldPrice: 1299, price: 950 },
     ],
     rating: 4.8,
     reviews: 173,
@@ -274,12 +284,13 @@ export const products: Product[] = [
     name: "Libera",
     subtitle: "Eau de Parfum",
     collection: "Fresh",
-    price: 599,
+    price: 350,
+    oldPrice: 599,
     size: "30 ml",
     variants: [
-      { size: "30 ml", price: 599 },
-      { size: "50 ml", price: 799 },
-      { size: "100 ml", price: 1299 },
+      { size: "30 ml", oldPrice: 599, price: 350 },
+      { size: "50 ml", oldPrice: 799, price: 499 },
+      { size: "100 ml", oldPrice: 1299, price: 899 },
     ],
     rating: 4.7,
     reviews: 149,
@@ -302,12 +313,13 @@ export const products: Product[] = [
     name: "Vanilla Noir",
     subtitle: "Premium Extrait de Parfum",
     collection: "Signature",
-    price: 599,
+    price: 399,
+    oldPrice: 599,
     size: "30 ml",
     variants: [
-      { size: "30 ml", price: 599 },
-      { size: "50 ml", price: 899 },
-      { size: "100 ml", price: 1399 },
+      { size: "30 ml", oldPrice: 599, price: 399 },
+      { size: "50 ml", oldPrice: 899, price: 550 },
+      { size: "100 ml", oldPrice: 1399, price: 950 },
     ],
     rating: 4.9,
     reviews: 231,
