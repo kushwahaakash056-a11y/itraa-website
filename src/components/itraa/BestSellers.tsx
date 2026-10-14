@@ -121,6 +121,7 @@ export function ProductCard({
           >
             {product.name}
           </Link>
+          <p className="mt-1 text-xs font-medium text-gold">Inspired By {product.inspiredBy}</p>
           <p className="mt-1 text-xs text-muted-foreground">{product.subtitle}</p>
         </div>
         <PriceDisplay

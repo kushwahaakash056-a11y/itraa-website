@@ -110,6 +110,7 @@ function ShopPage() {
               {(
                 [
                   ["Collection", (p: (typeof products)[number]) => p.collection],
+                  ["Inspired By", (p: (typeof products)[number]) => p.inspiredBy],
                   [
                     "Price",
                     (p: (typeof products)[number]) =>
@@ -166,6 +167,9 @@ function ShopPage() {
                   />
                   <div>
                     <p className="font-serif text-lg">{p.name}</p>
+                    <p className="mt-0.5 text-[11px] font-medium text-gold">
+                      Inspired By {p.inspiredBy}
+                    </p>
                     <PriceDisplay
                       oldPrice={p.oldPrice}
                       price={p.price}
@@ -200,7 +204,10 @@ function ShopPage() {
                     loading="lazy"
                     className="h-11 w-11 rounded-full object-cover"
                   />
-                  <span className="font-serif text-base">{p.name}</span>
+                  <span>
+                    <span className="block font-serif text-base">{p.name}</span>
+                    <span className="block text-[10px] text-gold">Inspired By {p.inspiredBy}</span>
+                  </span>
                 </Link>
               );
             })}

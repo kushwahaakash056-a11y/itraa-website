@@ -14,7 +14,7 @@ export function SearchOverlay() {
     const q = query.trim().toLowerCase();
     if (!q) return products.slice(0, 3);
     return products.filter((p) =>
-      `${p.name} ${p.collection} ${p.subtitle}`.toLowerCase().includes(q),
+      `${p.name} ${p.collection} ${p.subtitle} ${p.inspiredBy}`.toLowerCase().includes(q),
     );
   }, [query]);
 
@@ -78,6 +78,9 @@ export function SearchOverlay() {
                     />
                     <div>
                       <p className="font-serif text-lg">{product.name}</p>
+                      <p className="text-[11px] font-medium text-gold">
+                        Inspired By {product.inspiredBy}
+                      </p>
                       <p className="text-xs text-muted-foreground">{product.collection}</p>
                       <PriceDisplay
                         oldPrice={product.oldPrice}

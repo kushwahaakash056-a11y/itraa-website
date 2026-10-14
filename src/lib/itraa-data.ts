@@ -80,6 +80,7 @@ export const collections: Collection[] = [
 export type Product = {
   slug: string;
   name: string;
+  inspiredBy: string;
   subtitle: string;
   collection: string;
   price: number;
@@ -109,6 +110,7 @@ export const products: Product[] = [
   {
     slug: "velocity",
     name: "Velocity",
+    inspiredBy: "CR7",
     subtitle: "Eau de Parfum",
     collection: "Signature",
     price: 350,
@@ -138,6 +140,7 @@ export const products: Product[] = [
   {
     slug: "obsidian",
     name: "Obsidian",
+    inspiredBy: "D SAUVAGE",
     subtitle: "Extrait de Parfum",
     collection: "Oud",
     price: 399,
@@ -167,6 +170,7 @@ export const products: Product[] = [
   {
     slug: "rogue",
     name: "ROGUE",
+    inspiredBy: "Azzaro",
     subtitle: "Eau de Parfum",
     collection: "Signature",
     price: 399,
@@ -196,6 +200,7 @@ export const products: Product[] = [
   {
     slug: "veloris",
     name: "Veloris",
+    inspiredBy: "Ultra Male",
     subtitle: "Eau de Parfum",
     collection: "Fresh",
     price: 350,
@@ -224,6 +229,7 @@ export const products: Product[] = [
   {
     slug: "arabica",
     name: "Arabica",
+    inspiredBy: "Lattafa Khamrah",
     subtitle: "Premium Extrait de Parfum",
     collection: "Oud",
     price: 399,
@@ -253,6 +259,7 @@ export const products: Product[] = [
   {
     slug: "floreva",
     name: "Floreva",
+    inspiredBy: "Gucci Flora",
     subtitle: "Eau de Parfum",
     collection: "Floral",
     price: 399,
@@ -282,6 +289,7 @@ export const products: Product[] = [
   {
     slug: "libera",
     name: "Libera",
+    inspiredBy: "YSL Libre",
     subtitle: "Eau de Parfum",
     collection: "Fresh",
     price: 350,
@@ -311,6 +319,7 @@ export const products: Product[] = [
   {
     slug: "vanilla-noir",
     name: "Vanilla Noir",
+    inspiredBy: "Vanilla 28",
     subtitle: "Premium Extrait de Parfum",
     collection: "Signature",
     price: 399,

@@ -42,6 +42,9 @@ export function QuickView() {
               <div className="p-8 sm:p-12">
                 <p className="eyebrow">{quickView.collection} Collection</p>
                 <h3 className="mt-4 font-display text-4xl">{quickView.name}</h3>
+                <p className="mt-2 text-xs font-medium uppercase tracking-[0.12em] text-gold">
+                  Inspired By {quickView.inspiredBy}
+                </p>
                 <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
                   {quickView.description}
                 </p>

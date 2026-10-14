@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Camera, Heart, MessageCircle, Send } from "lucide-react";
+import instagramProfile from "@/assets/instagram-profile.jpg";
 import { images } from "@/lib/itraa-data";
 
 export function InstagramGallery() {
@@ -76,9 +77,13 @@ export function InstagramGallery() {
               className="group w-[84vw] max-w-[23rem] shrink-0 snap-center overflow-hidden rounded-[24px] border border-border bg-card shadow-soft transition-transform duration-500 hover:-translate-y-1 md:w-auto md:max-w-none"
             >
               <div className="flex items-center gap-3 px-4 py-3">
-                <span className="grid h-9 w-9 place-items-center rounded-full bg-foreground font-display text-xs tracking-[0.12em] text-background">
-                  IT
-                </span>
+                <img
+                  src={instagramProfile}
+                  alt="ITRAA profile"
+                  width={72}
+                  height={72}
+                  className="h-9 w-9 shrink-0 rounded-full border border-gold/40 object-cover"
+                />
                 <div>
                   <p className="font-button text-[10px] font-medium tracking-[0.12em]">
                     itraa_perfumery

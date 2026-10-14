@@ -62,6 +62,12 @@ export function SignatureSection() {
           >
             Arabica <span className="italic text-gold">Premium</span>
           </h2>
+          <p
+            data-reveal
+            className="mt-3 font-button text-[10px] uppercase tracking-[0.18em] text-gold"
+          >
+            Inspired By Lattafa Khamrah
+          </p>
           <p data-reveal className="mt-6 text-sm leading-[1.9] text-muted-foreground">
             Roasted coffee and cardamom folded into warm resin, rose and a velvety oud base. A rich
             premium composition with depth that unfolds slowly on skin.

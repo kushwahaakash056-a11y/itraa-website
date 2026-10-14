@@ -90,6 +90,9 @@ function ProductPage() {
               </button>
             ))}
           </div>
+          <p className="mt-4 text-center font-button text-[10px] uppercase tracking-[0.18em] text-gold">
+            Inspired By {product.inspiredBy}
+          </p>
         </div>
 
         <div>
@@ -104,6 +107,12 @@ function ProductPage() {
           </h1>
           <p data-reveal className="mt-3 font-serif text-lg text-muted-foreground">
             {product.subtitle} · {selectedVariant.size}
+          </p>
+          <p
+            data-reveal
+            className="mt-2 font-button text-[10px] uppercase tracking-[0.18em] text-gold"
+          >
+            Inspired By {product.inspiredBy}
           </p>
 
           <div data-reveal className="mt-6 flex items-center gap-3">
@@ -258,6 +267,7 @@ function ProductPage() {
                 />
               </div>
               <p className="mt-5 font-serif text-xl">{p.name}</p>
+              <p className="mt-1 text-xs font-medium text-gold">Inspired By {p.inspiredBy}</p>
               <PriceDisplay
                 oldPrice={p.oldPrice}
                 price={p.price}

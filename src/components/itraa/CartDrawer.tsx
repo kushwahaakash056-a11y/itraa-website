@@ -85,6 +85,9 @@ export function CartDrawer() {
                         <div className="flex items-start justify-between gap-3">
                           <div className="min-w-0">
                             <p className="truncate font-serif text-lg">{product.name}</p>
+                            <p className="truncate text-[10px] font-medium text-gold">
+                              Inspired By {product.inspiredBy}
+                            </p>
                             <p className="text-xs text-muted-foreground">{line.size}</p>
                           </div>
                           <button

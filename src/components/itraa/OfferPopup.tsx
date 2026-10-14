@@ -7,8 +7,6 @@ export function OfferPopup() {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    if (window.sessionStorage.getItem("itraa-offer-seen")) return;
-
     const timer = window.setTimeout(() => setOpen(true), 900);
     return () => window.clearTimeout(timer);
   }, []);
@@ -23,7 +21,6 @@ export function OfferPopup() {
   }, [open]);
 
   const closePopup = () => {
-    window.sessionStorage.setItem("itraa-offer-seen", "true");
     setOpen(false);
   };
 

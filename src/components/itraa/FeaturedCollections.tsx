@@ -1,8 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { ChevronLeft, ChevronRight, Star } from "lucide-react";
-import { products } from "@/lib/itraa-data";
+import { ChevronLeft, ChevronRight, Plus, Star } from "lucide-react";
+import { formatINR, getDiscountPercent, products } from "@/lib/itraa-data";
 import { PriceDisplay } from "@/components/itraa/PriceDisplay";
+import { useShop } from "@/lib/shop-store";
 import { useReveal, useSplitReveal } from "@/lib/use-reveal";
 import type { Product } from "@/lib/itraa-data";
 
@@ -32,6 +33,7 @@ function FeaturedProductCard({ product }: { product: Product }) {
       >
         {product.name}
       </Link>
+      <p className="mt-1 text-xs text-muted-foreground">Inspired By {product.inspiredBy}</p>
 
       <PriceDisplay
         oldPrice={product.oldPrice}
@@ -53,6 +55,70 @@ function FeaturedProductCard({ product }: { product: Product }) {
         <span className="text-[11px] text-muted-foreground">
           {product.rating} · {product.reviews} reviews
         </span>
+      </div>
+    </article>
+  );
+}
+
+function MobileProductCard({ product }: { product: Product }) {
+  const { addToCart } = useShop();
+  const scentNote = product.notes.top[0] ?? product.collection;
+
+  return (
+    <article data-reveal className="min-w-0 overflow-hidden rounded-xl bg-card shadow-soft">
+      <Link to="/product/$slug" params={{ slug: product.slug }} className="block bg-secondary">
+        <img
+          src={product.image}
+          alt={`${product.name} ${product.size} by ITRAA`}
+          loading="lazy"
+          width={600}
+          height={600}
+          className="aspect-square w-full object-cover"
+        />
+      </Link>
+
+      <div className="px-2.5 pb-2.5 pt-2">
+        <Link
+          to="/product/$slug"
+          params={{ slug: product.slug }}
+          className="block min-h-8 font-button text-[10px] font-semibold uppercase leading-[1.35] tracking-[0.025em] text-foreground"
+        >
+          {product.name} — {product.size}
+        </Link>
+        <p className="mt-0.5 truncate font-button text-[7px] uppercase tracking-[0.04em] text-muted-foreground">
+          Inspired By {product.inspiredBy}
+        </p>
+
+        <div className="mt-1 flex min-h-4 flex-wrap gap-1">
+          <span className="rounded border border-foreground/35 px-1 py-px font-button text-[6px] uppercase tracking-[0.08em]">
+            {product.subtitle.includes("Extrait") ? "Extrait" : "EDP"}
+          </span>
+          <span className="max-w-full truncate rounded border border-foreground/35 px-1 py-px font-button text-[6px] uppercase tracking-[0.08em]">
+            {scentNote}
+          </span>
+        </div>
+
+        <div className="mt-2 flex items-end gap-1.5">
+          <div className="flex min-w-0 flex-1 flex-wrap items-baseline gap-x-1 gap-y-0.5 font-button">
+            <span className="text-[11px] font-semibold text-foreground">
+              {formatINR(product.price)}
+            </span>
+            <span className="text-[8px] text-muted-foreground line-through">
+              {formatINR(product.oldPrice)}
+            </span>
+            <span className="rounded-sm bg-foreground px-1 py-0.5 text-[6px] font-semibold tracking-[0.03em] text-background">
+              {getDiscountPercent(product.oldPrice, product.price)}% OFF
+            </span>
+          </div>
+          <button
+            type="button"
+            aria-label={`Add ${product.name} to cart`}
+            onClick={() => addToCart(product.slug)}
+            className="grid h-6 w-6 shrink-0 place-items-center rounded-md bg-foreground text-background transition-transform active:scale-90"
+          >
+            <Plus className="h-3 w-3" strokeWidth={1.8} />
+          </button>
+        </div>
       </div>
     </article>
   );
@@ -106,8 +172,32 @@ export function FeaturedCollections() {
   }, [updateRailControls]);
 
   return (
-    <section ref={root} id="collections" className="shell py-28 lg:py-40">
-      <div className="grid gap-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1fr)] lg:items-end">
+    <section ref={root} id="collections" className="shell pb-20 pt-24 md:py-28 lg:py-40">
+      <div className="flex items-end justify-between gap-4 md:hidden">
+        <div>
+          <p data-reveal className="eyebrow">
+            Featured
+          </p>
+          <h2 data-reveal className="mt-3 font-display text-3xl leading-none">
+            Shop the <span className="italic text-gold">collection</span>
+          </h2>
+        </div>
+        <Link
+          data-reveal
+          to="/collections"
+          className="shrink-0 font-button text-[8px] uppercase tracking-[0.15em] text-muted-foreground underline underline-offset-4"
+        >
+          View all
+        </Link>
+      </div>
+
+      <div className="mt-7 grid grid-cols-2 gap-2.5 md:hidden">
+        {products.map((product) => (
+          <MobileProductCard key={product.slug} product={product} />
+        ))}
+      </div>
+
+      <div className="hidden gap-8 md:grid lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1fr)] lg:items-end">
         <div>
           <p data-reveal className="eyebrow">
             Featured
@@ -135,7 +225,7 @@ export function FeaturedCollections() {
 
       <div
         ref={rail}
-        className="no-scrollbar mt-16 overflow-x-auto overscroll-x-contain scroll-smooth pb-2"
+        className="no-scrollbar mt-16 hidden overflow-x-auto overscroll-x-contain scroll-smooth pb-2 md:block"
         data-reveal
       >
         <div className="flex snap-x snap-mandatory gap-6">
@@ -150,7 +240,10 @@ export function FeaturedCollections() {
         </div>
       </div>
 
-      <div data-reveal className="mt-10 flex flex-wrap items-center justify-between gap-5">
+      <div
+        data-reveal
+        className="mt-10 hidden flex-wrap items-center justify-between gap-5 md:flex"
+      >
         <p className="font-button text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
           Swipe, scroll or use the arrows to explore
         </p>
