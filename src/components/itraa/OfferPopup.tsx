@@ -55,8 +55,8 @@ export function OfferPopup() {
             </button>
             <Link to="/collections" onClick={closePopup} className="block">
               <img
-                src="/navratri-popup-offer.png"
-                alt="Navratri special offer — up to 40% off on all perfumes"
+                src="/DiwaliOffer.png"
+                alt="Diwali Special Offer — up to 40% off on all perfumes"
                 width={1254}
                 height={1254}
                 className="aspect-square w-full object-cover"
